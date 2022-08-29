@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    h1{
+        font-family: 'Open Sans', sans-serif;
+        @apply text-center text-2xl font-bold text-[#333333]
+        
+    }
+    body{
+        font-family: "Roboto";
+        @apply bg-gray-200 
+        
+    }
+    
+}
+
+@layer components{
+    .container{
+        @apply max-w-[1200px] mx-auto  
+    }
+}
