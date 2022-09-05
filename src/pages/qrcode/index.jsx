@@ -7,7 +7,7 @@ const Qrcode = (props) => {
   const [selected, setSelected] = useState("environment");
 
   const constraints = {
-    facingMode: { selected },
+    facingMode: selected,
   };
 
   return (
@@ -20,6 +20,7 @@ const Qrcode = (props) => {
       <div className="bg-red-200 w-full ">
         <QrReader
           constraints={constraints}
+          scanDelay={500}
           onResult={(result, error) => {
             if (!!result) {
               setData(result?.text);
@@ -29,7 +30,7 @@ const Qrcode = (props) => {
               console.info(error);
             }
           }}
-          style={{ width: "100%" }}
+          style={{ width: "200px", heigth: "100px" }}
         />
       </div>
       <p>{data}</p>
