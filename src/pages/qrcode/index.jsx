@@ -9,6 +9,7 @@ const Qrcode = (props) => {
     <>
       <div className="bg-red-200 w-full ">
         <QrReader
+          facingMode="environment"
           onResult={(result, error) => {
             if (!!result) {
               setData(result?.text);
