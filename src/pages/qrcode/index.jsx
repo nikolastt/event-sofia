@@ -1,18 +1,36 @@
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
-import { QrReader } from "react-qr-reader";
+const QrReader = dynamic(
+  () => import("react-qr-reader").then((mod) => mod.QrReader),
+  { ssr: false }
+);
+
+// import { QrReader } from "react-qr-reader";
 
 const Qrcode = (props) => {
   const [data, setData] = useState("No result");
   const [selected, setSelected] = useState("environment");
+  const [renderScan, setRenderScan] = useState(true);
 
   const constraints = {
-    facingMode: selected,
+    video: {
+      facingMode: selected,
+    },
+  };
+
+  const handleSelect = (value) => {
+    console.log("chamou");
+    setRenderScan(false);
+    setSelected(value);
+    setTimeout(() => {
+      setRenderScan(true);
+    }, 200);
   };
 
   return (
     <>
-      <select onChange={(e) => setSelected(e.target.value)}>
+      <select onChange={handleSelect}>
         <option value={"environment"}>Back Camera</option>
         <option value={"user"}>Front Camera</option>
       </select>
@@ -30,7 +48,6 @@ const Qrcode = (props) => {
               console.info(error);
             }
           }}
-          style={{ width: "200px", heigth: "100px" }}
         />
       </div>
       <p>{data}</p>
