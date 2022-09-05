@@ -11,7 +11,7 @@ const QrReader = dynamic(
 const Qrcode = (props) => {
   const [data, setData] = useState("No result");
   const [selected, setSelected] = useState("environment");
-  const [renderScan, setRenderScan] = useState(true);
+  const [renderScan, setRenderScan] = useState(false);
 
   const constraints = {
     video: {
@@ -20,7 +20,6 @@ const Qrcode = (props) => {
   };
 
   const handleSelect = (value) => {
-    console.log("chamou");
     setRenderScan(false);
     setSelected(value);
     setTimeout(() => {
@@ -30,26 +29,32 @@ const Qrcode = (props) => {
 
   return (
     <>
-      <select onChange={handleSelect}>
-        <option value={"environment"}>Back Camera</option>
-        <option value={"user"}>Front Camera</option>
-      </select>
+      <button onClick={() => setRenderScan(!renderScan)}>scan</button>
+      {renderScan && (
+        <>
+          <select onChange={(e) => handleSelect(e.target.value)}>
+            <option value={"environment"}>Back Camera</option>
+            <option value={"user"}>Front Camera</option>
+          </select>
 
-      <div className="bg-red-200 w-full ">
-        <QrReader
-          constraints={constraints}
-          scanDelay={500}
-          onResult={(result, error) => {
-            if (!!result) {
-              setData(result?.text);
-            }
+          <div className="bg-red-200 w-full ">
+            <QrReader
+              constraints={constraints}
+              scanDelay={500}
+              onResult={(result, error) => {
+                if (!!result) {
+                  setData(result?.text);
+                }
 
-            if (!!error) {
-              console.info(error);
-            }
-          }}
-        />
-      </div>
+                if (!!error) {
+                  // console.info(error);
+                }
+              }}
+            />
+          </div>
+        </>
+      )}
+
       <p>{data}</p>
     </>
   );
