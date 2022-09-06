@@ -12,21 +12,26 @@ const QrReader = dynamic(
 
 const Qrcode = (props) => {
   const [data, setData] = useState("");
-  const [isBackCamera, setIsBackCamera] = useState(true);
+  const [isBackCamera, setIsBackCamera] = useState("environment");
   const [renderScan, setRenderScan] = useState(false);
-
-  const constraints = {
-    video: {
-      facingMode: isBackCamera ? "environment" : "user",
-    },
-  };
 
   const handleCamera = () => {
     setRenderScan(false);
-    setIsBackCamera(!isBackCamera);
+    isBackCamera === "user"
+      ? setIsBackCamera("environment")
+      : setIsBackCamera("user");
+
     setTimeout(() => {
       setRenderScan(true);
     }, 200);
+  };
+
+  console.log(isBackCamera);
+
+  const constraints = {
+    video: {
+      facingMode: isBackCamera,
+    },
   };
 
   return (
@@ -34,6 +39,10 @@ const Qrcode = (props) => {
       <div className="h-1/2">
         <div className="pt-6">
           <h1>Escanear e-ticket</h1>
+          <select onChange={() => handleCamera()}>
+            <option value={"environment"}>Back Camera</option>
+            <option value={"user"}>Front Camera</option>
+          </select>
         </div>
         <div className="mx-auto h-full  ">
           <div className="w-full h-1/6 flex items-center justify-center">
