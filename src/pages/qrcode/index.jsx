@@ -12,26 +12,22 @@ const QrReader = dynamic(
 
 const Qrcode = (props) => {
   const [data, setData] = useState("");
-  const [cameraSelected, setCameraSelected] = useState("environment");
+  const [isBackCamera, setIsBackCamera] = useState(true);
   const [renderScan, setRenderScan] = useState(false);
 
   const constraints = {
     video: {
-      facingMode: cameraSelected,
+      facingMode: isBackCamera ? "environment" : "user",
     },
   };
 
   const handleCamera = () => {
     setRenderScan(false);
-    cameraSelected === "environment"
-      ? setCameraSelected("user")
-      : setCameraSelected("environment");
+    setIsBackCamera(!isBackCamera);
     setTimeout(() => {
       setRenderScan(true);
     }, 200);
   };
-
-  console.log(cameraSelected);
 
   return (
     <div className="flex flex-col h-screen ">
