@@ -5,7 +5,7 @@ import { MdFlipCameraIos } from "react-icons/md";
 import { BsCheckLg } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 
-import Header from "../../components/Header";
+import Layout from "../../components/Layout";
 
 const QrReader = dynamic(
   () => import("react-qr-reader").then((mod) => mod.QrReader),
@@ -43,8 +43,8 @@ const Qrcode = (props) => {
   };
 
   return (
-    <>
-      <div className="flex flex-col h-screen ">
+    <Layout>
+      <div className="flex flex-col h-[calc(100vh-79px)] ">
         <div className="mx-auto h-full  ">
           <div className="w-full flex items-center py-6">
             <div className="h-full ">
@@ -141,7 +141,7 @@ const Qrcode = (props) => {
           {data}
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
