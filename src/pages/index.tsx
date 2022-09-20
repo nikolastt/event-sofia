@@ -15,7 +15,7 @@ import { AiOutlineInstagram } from "react-icons/ai";
 import LayoutApplication from "../components/Layout";
 import Link from "next/link";
 
-import IconInstagram from "../../public/images/instagramicon.png";
+import IconInstagram from "../../public/images/instagramIcon.png";
 import IconGmail from "../../public/images/gmailIcon.png";
 import IconWpp from "../../public/images/wppIcon.png";
 
