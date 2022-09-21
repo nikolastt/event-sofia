@@ -1,12 +1,8 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { NextPage } from "next";
 import Image from "next/image";
-import Header from "../components/Header";
 
 import bannerGeaan from "../../public/images/bannerGeaan.png";
-import lotes from "../../public/images/lotes.png";
-import waves from "../../public/images/wave.png";
 import CardBuyTickets from "../components/CardBuyTickets";
-import { useEffect, useState } from "react";
 
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BsPersonCheck } from "react-icons/bs";
@@ -22,7 +18,7 @@ import IconWpp from "../../public/images/wppIcon.png";
 const Home: NextPage = () => {
   return (
     <>
-      <div className="bg-logo-back-img w-full h-screen bg-cover absolute top-0 ">
+      <div className="w-full h-screen bg-cover absolute top-0 ">
         <div className="w-full h-full bg-gradient-to-b from-transparent  to-gray-300"></div>
       </div>
       <LayoutApplication>

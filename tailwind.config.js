@@ -10,9 +10,6 @@ module.exports = {
         "primary-500": "#70963F",
         "text-gray": "#69737A",
       },
-      backgroundImage: (theme) => ({
-        "logo-back-img": "url('/images/logoGeaan.png')",
-      }),
     },
   },
   plugins: [],

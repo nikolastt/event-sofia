@@ -114,12 +114,12 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
       </div>
 
       {/* Deixar a página embaçada com o menu aberto. */}
-      <div
+      {/* <div
         className={` ${
           !menuIsOpen && "hidden"
         } fixed left-0 bottom-0 min-w-[calc(100%)] backdrop-blur-sm h-full ease-out duration-300 z-10`}
         onClick={closeMenu}
-      ></div>
+      ></div> */}
     </>
   );
 };

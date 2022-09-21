@@ -34,7 +34,7 @@ const LayoutApplication: React.FC<PropsWithChildren> = ({ children }) => {
         // name={session?.user?.name}
       />
       <div
-        className={`w-full lg:min-h-[calc(100vh-79px)] min-h-[calc(100vh-79px)] pt-3 pb-6  bg-tertiary-800 lg:w-[calc(100%-250px)] px-3 lg:absolute lg:right-0 backdrop-blur-3xl`}
+        className={`w-full lg:min-h-[calc(100vh-79px)] min-h-[calc(100vh-79px)] pt-3 pb-6  bg-tertiary-800 lg:w-[calc(100%-250px)] px-3 lg:absolute lg:right-0 `}
       >
         {children}
       </div>
