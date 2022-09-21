@@ -29,10 +29,10 @@ const Header: React.FC<IHeader> = ({ changeColor }) => {
           !changeColor &&
           "bg-gradient-to-b from-black/70 via-black/60 to-transparent"
         }  flex px-6 xl:px-0 ${
-          changeColor && "bg-primary-500 shadow rounded-b-2xl "
+          changeColor && "bg-primary-500 shadow rounded-b-xl "
         } `}
       >
-        <div className="flex items-center justify-between w-full lg:justify-center">
+        <div className="flex items-center justify-center w-full lg:justify-center">
           <Link href="/" passHref>
             <div className="relative w-[50px] h-[50px] cursor-pointer">
               <Image src={logo} alt="Logo" layout="fill" priority />
@@ -42,7 +42,7 @@ const Header: React.FC<IHeader> = ({ changeColor }) => {
           <GiHamburgerMenu
             color="white"
             size={25}
-            className={` cursor-pointer  lg:hidden`}
+            className={` cursor-pointer absolute right-3 lg:hidden`}
             onClick={handleMenu}
           />
         </div>

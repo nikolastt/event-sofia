@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Header from "../components/Header";
 
@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BsPersonCheck } from "react-icons/bs";
 import { HiLocationMarker } from "react-icons/hi";
-import { AiOutlineInstagram } from "react-icons/ai";
+
 import LayoutApplication from "../components/Layout";
 import Link from "next/link";
 

@@ -6,6 +6,7 @@ interface IItemMenuSideBar {
   children?: React.ReactNode;
   href: string;
   closeMenu: () => void;
+  onClick?: () => void;
   active?: boolean;
 }
 
@@ -19,14 +20,14 @@ const ItemMenuSideBar: React.FC<IItemMenuSideBar> = ({
   return (
     <Link href={href} passHref>
       <div
-        className={`flex items-center text-white ${
-          active && "bg-[#305714]"
-        }  py-2 rounded-lg hover:bg-[#305714]  cursor-pointer `}
+        className={`h-[40px] flex items-center text-white border-l-8 border-transparent font-light ${
+          active && "  !border-primary-500 "
+        }  py-2 rounded-r-lg hover:bg-gray-800/50  cursor-pointer `}
         onClick={closeMenu}
       >
         {children}
 
-        <span>{content}</span>
+        <span className="">{content}</span>
       </div>
     </Link>
   );
