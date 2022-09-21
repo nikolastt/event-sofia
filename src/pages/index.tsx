@@ -41,7 +41,7 @@ const Home: NextPage = () => {
                     size={20}
                     className="text-text-gray mr-3"
                   />
-                  26/11/2022 - 18:00 - 22:00 GMT-3 <br />
+                  26/11/2022 - 7:30 - 17:00 GMT-3 <br />
                 </span>
                 <span className="mt-3 text-center text-text-gray flex">
                   <BsPersonCheck size={20} className="text-text-gray mr-3" />
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
 
               <div className="flex justify-center items-center mt-12 lg:w-1/4 lg:h-full">
                 <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
-                  REALIZAR INSCRIÇÃO
+                  COMPRAR INGRESSOS
                 </button>
               </div>
             </div>
@@ -62,14 +62,14 @@ const Home: NextPage = () => {
                 <p className="text-justify mt-6 leading-relaxed">
                   Sejam bem vindos ao{" "}
                   <span className="font-semibold text-primary-500">
-                    GeanLeite2022!
+                    Milk Days 2022!
                   </span>
                   <br />
                   <br /> Em sua IV edição, o simpósio de tecnologia e
                   desenvolvimento da pecuária leiteira- Milk Days, segue
                   inovando seus temas, trazendo para o setor leiteiro os
                   assuntos mais relevantes e que nortearão o futuro da pecuária.
-                  Nessa edição, serão apresentados temas relacionado:
+                  Nessa edição, serão apresentados temas relacionando:
                   reprodução, gado jovem, nutrição e avaliação linear em vacas
                   leiteiras. <br /> <br />
                 </p>
@@ -86,7 +86,7 @@ const Home: NextPage = () => {
                     </span>
                     <h2 className="text-center  ">Local do evento</h2>
                     <br />
-                    <span className="text-blue-400 text-center w-full flex hover:underline ">
+                    <span className="text-blue-400 text-center w-full  justify-center flex hover:underline ">
                       Puc minas, Praça da liberdade auditório 1, rua Sergipe,
                       790 funcionários Belo Horizonte-mg
                     </span>
@@ -96,14 +96,17 @@ const Home: NextPage = () => {
                   <h2 className="text-center text-xl mb-3">Organizador</h2>
                   GEAAN Leite- Grupo de estudos aplicados ao agronegócio <br />
                 </div> */}
-                <div className="flex justify-around mt-6 w-full ">
+                <div className="grid sm:grid-cols-2 gap-3 items-center  mt-6 w-full ">
                   <Link
                     href="https://www.instagram.com/geaanleitepraca/"
                     target="_blank"
                     passHref
                   >
-                    <a target="_blank" className="w-1/2">
-                      <div className="relative w-[30px] h-[30px] mx-auto mt-6">
+                    <a
+                      target="_blank"
+                      className="h-[110px] shadow-lg py-3 rounded-md"
+                    >
+                      <div className="relative w-[30px] h-[30px] mx-auto mt-6 ">
                         <Image
                           src={IconInstagram}
                           alt="Icon Instagram"
@@ -122,7 +125,10 @@ const Home: NextPage = () => {
                     target="_blank"
                     passHref
                   >
-                    <a target="_blank" className="w-1/2">
+                    <a
+                      target="_blank"
+                      className="h-[110px] shadow-lg py-3 rounded-md"
+                    >
                       <div className="relative w-[30px] h-[30px] mx-auto mt-6">
                         <Image
                           src={IconGmail}
@@ -136,10 +142,12 @@ const Home: NextPage = () => {
                       </div>
                     </a>
                   </Link>
-                </div>
-                <div className="flex justify-around items-center">
+
                   <Link href="https://wa.me/5531991492727?text=Olá%20Sofia%20Valle!%20vim%20pelo%20site%20do%20Geaan%20Eventos%20e%20gostaria%20de%20saber%20mais%20informações!">
-                    <a target="_blank" className="w-1/2">
+                    <a
+                      target="_blank"
+                      className="h-[110px] shadow-lg py-3 rounded-md"
+                    >
                       <div className="flex flex-col items-center mt-6">
                         <div className="relative w-[30px] h-[30px] ">
                           <Image
@@ -154,7 +162,10 @@ const Home: NextPage = () => {
                     </a>
                   </Link>
                   <Link href="https://wa.me/553199302443?text=Olá%20João%20Pedro!%20vim%20pelo%20site%20do%20Geaan%20Eventos%20e%20gostaria%20de%20saber%20mais%20informações!">
-                    <a target="_blank" className="w-1/2">
+                    <a
+                      target="_blank"
+                      className="h-[110px] shadow-lg py-3 rounded-md"
+                    >
                       <div className="flex flex-col items-center mt-6">
                         <div className="relative w-[30px] h-[30px] ">
                           <Image
@@ -173,17 +184,16 @@ const Home: NextPage = () => {
                 <div className="font-extralight mt-12 flex justify-center text-primary-500 text-2xl">
                   Esperamos vocês!
                 </div>
-                {/* <div className="relative w-full h-[160px] mt-12 md:h-[230px] lg:h-[280px]">
-                  <Image src={lotes} alt="lote" layout="fill" />
-                </div>
-                <div className="relative w-full h-[72px] mt-12 md:h-[100px] lg:h-[150px]">
-                  <Image src={waves} alt="lote" layout="fill" />
-                </div> */}
               </div>
             </div>
 
             <div className="my-6 bg-white  py-12 max-w-[760px] mx-auto rounded-lg px-3 md:px-6 lg:container">
-              <div className="max-w-[768px] mx-auto">
+              <div className="flex mx-auto justify-center items-center  lg:w-1/4 lg:h-full">
+                <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
+                  COMPRAR INGRESSOS
+                </button>
+              </div>
+              {/* <div className="max-w-[768px] mx-auto">
                 <h1>Inscrições</h1>
                 <div className="px-3 mt-6">
                   <CardBuyTickets
@@ -198,7 +208,7 @@ const Home: NextPage = () => {
                     title="Associados Geaan Leite"
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

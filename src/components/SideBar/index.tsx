@@ -33,7 +33,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
       <div
         className={`min-h-screen fixed  right-0 bottom-0 top-0 w-[250px] ${
           menuIsOpen ? "mr-0 " : "-mr-[250px]"
-        }   bg-gray-800/50 backdrop-blur-md ease-in-out duration-300 pt-[79px] border-l-[1px] border-l-tertiary-800 lg:fixed lg:left-0 z-20 rounded-l-xl`}
+        }   bg-gray-800/50 backdrop-blur-md ease-in-out duration-300 pt-[79px] border-l-[1px] border-l-tertiary-800 lg:left-0 z-20 lg:rounded-br-xl lg:rounded-l-none rounded-l-xl`}
       >
         <AiOutlineClose
           size={25}
@@ -71,7 +71,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
         ) : (
           <button
             onClick={() => signIn("google")}
-            className="py-2 flex justify-between px-6 bg-white rounded-md w-3/4 shadow-lg shadow-white/50"
+            className="py-2 mx-auto flex justify-between px-6 bg-white rounded-md w-3/4 shadow-lg shadow-white/50"
           >
             Login com <FcGoogle size={25} />
           </button>
@@ -114,12 +114,12 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
       </div>
 
       {/* Deixar a página embaçada com o menu aberto. */}
-      {/* <div
+      <div
         className={` ${
           !menuIsOpen && "hidden"
-        } fixed left-0 bottom-0 min-w-[calc(100%)] backdrop-blur-sm h-full ease-out duration-300 z-10`}
+        } fixed left-0 bottom-0 min-w-[calc(100%)] backdrop-blur-sm h-full ease-out duration-300 z-10 lg:hidden`}
         onClick={closeMenu}
-      ></div> */}
+      ></div>
     </>
   );
 };

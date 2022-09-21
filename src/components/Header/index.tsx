@@ -25,7 +25,7 @@ const Header: React.FC<IHeader> = ({ changeColor }) => {
       <SideBar isOpen={menuOpen} closeMenu={handleMenu} />
 
       <header
-        className={`w-full ease-in-out duration-300 fixed z-10 top-0 backdrop-blur-3xl h-[79px] px-3 bg-tertiary-800  lg:w-[calc(100%-250px)] lg:ml-auto ${
+        className={`w-full ease-in-out duration-300 fixed z-10 top-0 h-[79px] px-3 bg-tertiary-800  lg:w-[calc(100%-250px)]  lg:right-0 ${
           !changeColor &&
           "bg-gradient-to-b from-black/70 via-black/60 to-transparent"
         }  flex px-6 xl:px-0 ${
@@ -46,8 +46,6 @@ const Header: React.FC<IHeader> = ({ changeColor }) => {
             onClick={handleMenu}
           />
         </div>
-
-        <SideBar isOpen={menuOpen} closeMenu={handleMenu} />
       </header>
     </>
   );
