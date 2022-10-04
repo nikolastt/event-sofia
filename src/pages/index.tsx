@@ -15,6 +15,8 @@ import IconInstagram from "../../public/images/instagramIcon.png";
 import IconGmail from "../../public/images/gmailIcon.png";
 import IconWpp from "../../public/images/wppIcon.png";
 
+import { motion } from "framer-motion";
+
 const Home: NextPage = () => {
   return (
     <>
@@ -29,7 +31,20 @@ const Home: NextPage = () => {
                 <Image src={bannerGeaan} alt="Banner" layout="fill" />
               </div>
             </div>
-            <div className="bg-white mt-6 flex flex-col px-6 py-12 max-w-[768px] mx-auto rounded-lg lg:container lg:justify-between lg:flex-row">
+            <motion.div
+              initial={{
+                opacity: 0,
+                x: -300,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+              }}
+              transition={{
+                duration: 1.5,
+              }}
+              className="bg-white mt-6 flex flex-col px-6 py-12 max-w-[768px] mx-auto rounded-lg lg:container lg:justify-between lg:flex-row"
+            >
               <div className="lg:w-3/4">
                 <h1 className="lg:mb-6 lg: text-center">
                   4º Simpósio de desenvolvimento da pecuária leiteira Milk Days
@@ -54,9 +69,22 @@ const Home: NextPage = () => {
                   COMPRAR INGRESSOS
                 </button>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="mt-6 bg-white py-12 px-6 max-w-[768px] mx-auto rounded-lg lg:container">
+            <motion.div
+              initial={{
+                opacity: 0,
+                x: 300,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+              }}
+              transition={{
+                duration: 1.5,
+              }}
+              className="mt-6 bg-white py-12 px-6 max-w-[768px] mx-auto rounded-lg lg:container"
+            >
               <div className="max-w-[768px] mx-auto">
                 <h1 className="text-center">Sobre o evento</h1>
                 <p className="text-justify mt-6 leading-relaxed">
@@ -102,7 +130,18 @@ const Home: NextPage = () => {
                     target="_blank"
                     passHref
                   >
-                    <a
+                    <motion.a
+                      initial={{
+                        opacity: 0,
+                        y: 300,
+                      }}
+                      whileInView={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      transition={{
+                        duration: 0.8,
+                      }}
                       target="_blank"
                       className="h-[110px] shadow-lg py-3 rounded-md"
                     >
@@ -117,7 +156,7 @@ const Home: NextPage = () => {
                       <div className="flex justify-center">
                         <span className=" ">@geaanleitepraca</span>
                       </div>
-                    </a>
+                    </motion.a>
                   </Link>
 
                   <Link
@@ -125,7 +164,18 @@ const Home: NextPage = () => {
                     target="_blank"
                     passHref
                   >
-                    <a
+                    <motion.a
+                      initial={{
+                        opacity: 0,
+                        y: 300,
+                      }}
+                      whileInView={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      transition={{
+                        duration: 0.8,
+                      }}
                       target="_blank"
                       className="h-[110px] shadow-lg py-3 rounded-md"
                     >
@@ -140,11 +190,22 @@ const Home: NextPage = () => {
                       <div className="flex justify-center">
                         <span className=" ">geaanleiteppl@gmail.com</span>
                       </div>
-                    </a>
+                    </motion.a>
                   </Link>
 
                   <Link href="https://wa.me/5531991492727?text=Olá%20Sofia%20Valle!%20vim%20pelo%20site%20do%20Geaan%20Eventos%20e%20gostaria%20de%20saber%20mais%20informações!">
-                    <a
+                    <motion.a
+                      initial={{
+                        opacity: 0,
+                        y: 300,
+                      }}
+                      whileInView={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      transition={{
+                        duration: 0.8,
+                      }}
                       target="_blank"
                       className="h-[110px] shadow-lg py-3 rounded-md"
                     >
@@ -159,10 +220,21 @@ const Home: NextPage = () => {
 
                         <span className=" ">Sofia: 31 99149-2727</span>
                       </div>
-                    </a>
+                    </motion.a>
                   </Link>
                   <Link href="https://wa.me/553199302443?text=Olá%20João%20Pedro!%20vim%20pelo%20site%20do%20Geaan%20Eventos%20e%20gostaria%20de%20saber%20mais%20informações!">
-                    <a
+                    <motion.a
+                      initial={{
+                        opacity: 0,
+                        y: 300,
+                      }}
+                      whileInView={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      transition={{
+                        duration: 0.8,
+                      }}
                       target="_blank"
                       className="h-[110px] shadow-lg py-3 rounded-md"
                     >
@@ -177,7 +249,7 @@ const Home: NextPage = () => {
 
                         <span className=" ">João Pedro: 31 9930-2443</span>
                       </div>
-                    </a>
+                    </motion.a>
                   </Link>
                 </div>
 
@@ -185,7 +257,7 @@ const Home: NextPage = () => {
                   Esperamos vocês!
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             <div className="my-6 bg-white  py-12 max-w-[760px] mx-auto rounded-lg px-3 md:px-6 lg:container">
               <div className="flex mx-auto justify-center items-center  lg:w-1/4 lg:h-full">
