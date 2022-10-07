@@ -236,7 +236,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
                           text={orderQRCode.qrcode}
                         >
                           <h1 className="my-6 cursor-pointer">
-                            Qlique para copiar Pix Copia e Cola
+                            Clique para copiar Pix Copia e Cola
                           </h1>
                         </CopyToClipboard>
                         <CopyToClipboard
