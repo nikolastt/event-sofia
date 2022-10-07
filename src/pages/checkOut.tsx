@@ -62,6 +62,8 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
 
   const [orgerQRCode, setOrderQRCode] = useState<IOrderQRCode[]>([]);
 
+  const [loteEncerrado, setLoteEncerrado] = useState(false);
+
   const userOrders: IOrders[] = JSON.parse(orders);
 
   useEffect(() => {
@@ -122,7 +124,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
 
       const options = {
         method: "POST",
-        url: "https://geaan-leite.herokuapp.com/",
+        url: "http://localhost:3001",
         headers: { "Content-Type": "application/json" },
         data: { quantity: "1", userId: userId },
       };
@@ -130,17 +132,22 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
       axios
         .request(options)
         .then(function (response) {
-          setLoading(false);
-          setCheckOutSuccess(true);
-          notifySuccess();
-          setOrderQRCode([...orgerQRCode, response.data.imagemQrcode]);
-          setOrderQRCode((orders) => [
-            ...orders,
-            {
-              imagemQrcode: response.data.imagemQrcode,
-              qrcode: response.data.qrcode,
-            },
-          ]);
+          console.log(response.data);
+          if (response.data.lote === "encerrado") {
+            setLoteEncerrado(true);
+          } else {
+            setLoading(false);
+            setCheckOutSuccess(true);
+            notifySuccess();
+            setOrderQRCode([...orgerQRCode, response.data.imagemQrcode]);
+            setOrderQRCode((orders) => [
+              ...orders,
+              {
+                imagemQrcode: response.data.imagemQrcode,
+                qrcode: response.data.qrcode,
+              },
+            ]);
+          }
         })
         .catch(function (error) {
           notifyError();
@@ -154,6 +161,8 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
       setLoading(false);
     }
   };
+
+  console.log(loteEncerrado, "lote encerrado");
 
   const notifySuccess = () =>
     toast.success("🐄 Wow Pagamento gerado!", {
@@ -211,175 +220,181 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
               26/11/2022 - 7:30 - 17:00 GMT-3 <br />
             </span>
           </div>
+          {!loteEncerrado ? (
+            orgerQRCode.length >= 1 ? (
+              <div className="flex flex-col items-center mt-6">
+                <div>
+                  <h1 className="text-white">Pagementos pendentes</h1>
+                </div>
+                {orgerQRCode?.map(
+                  (orderQRCode) =>
+                    orderQRCode.imagemQrcode && (
+                      <div
+                        key={
+                          orderQRCode.imagemQrcode +
+                          new Date().getMilliseconds()
+                        }
+                        className="bg-primary-500 rounded-2xl p-10 mt-6  mb-6 w-full flex flex-col justify-center  max-w-[700px] mx-auto items-center "
+                      >
+                        <div>
+                          <img src={orderQRCode.imagemQrcode}></img>
+                        </div>
 
-          {orgerQRCode.length >= 1 ? (
-            <div className="flex flex-col items-center mt-6">
-              <div>
-                <h1 className="text-white">Pagementos pendentes</h1>
-              </div>
-              {orgerQRCode?.map(
-                (orderQRCode) =>
-                  orderQRCode.imagemQrcode && (
-                    <div
-                      key={
-                        orderQRCode.imagemQrcode + new Date().getMilliseconds()
-                      }
-                      className="bg-primary-500 rounded-2xl p-10 mt-6  mb-6 w-full flex flex-col justify-center  max-w-[700px] mx-auto items-center "
-                    >
-                      <div>
-                        <img src={orderQRCode.imagemQrcode}></img>
+                        <div className="w-full cursor-pointer">
+                          <CopyToClipboard
+                            onCopy={() => notifyCopySuccess()}
+                            text={orderQRCode.qrcode}
+                          >
+                            <h1 className="my-6 cursor-pointer">
+                              Qlique para copiar Pix Copia e Cola
+                            </h1>
+                          </CopyToClipboard>
+                          <CopyToClipboard
+                            onCopy={() => notifyCopySuccess()}
+                            text={orderQRCode.qrcode}
+                          >
+                            <p className="break-words cursor-pointer">
+                              {orderQRCode.qrcode}
+                            </p>
+                          </CopyToClipboard>
+                        </div>
                       </div>
-
-                      <div className="w-full cursor-pointer">
-                        <CopyToClipboard
-                          onCopy={() => notifyCopySuccess()}
-                          text={orderQRCode.qrcode}
-                        >
-                          <h1 className="my-6 cursor-pointer">
-                            Qlique para copiar Pix Copia e Cola
-                          </h1>
-                        </CopyToClipboard>
-                        <CopyToClipboard
-                          onCopy={() => notifyCopySuccess()}
-                          text={orderQRCode.qrcode}
-                        >
-                          <p className="break-words cursor-pointer">
-                            {orderQRCode.qrcode}
-                          </p>
-                        </CopyToClipboard>
-                      </div>
-                    </div>
-                  )
-              )}
-
-              <h1 className="mb-3 text-white">
-                Após confirmarmos o pagamento, seu ingresso estará disponível
-                em:
-              </h1>
-              <Link href="myTickets" passHref>
-                <button className="bg-primary-500 mt-6 animate-pulse py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
-                  MEUS QRCODES
-                </button>
-              </Link>
-            </div>
-          ) : (
-            <div className="mt-6 ">
-              <div className="shadow-2xl overflow-hidden">
-                <div className="w-full h-10 rounded-t-xl bg-primary-500 text-white overflow-hidden ">
-                  <div className="flex justify-between items-center h-full px-3">
-                    <p>Ingressos</p>
-
-                    <div>Cart R$ 26,00</div>
-                  </div>
-                </div>
-
-                <div className="border border-primary-500 overflow-hidden rounded-b-xl h-36 flex justify-between items-center">
-                  <div className="p-3">
-                    <p className="font-bold text-lg mb-3">Inscrição</p>
-                    <p>R$: 25,00 + R$1,00 - Taxa</p>
-                  </div>
-
-                  <div className="p-3 text-2xl h-full flex items-center">1</div>
-                </div>
-              </div>
-
-              <div className="mt-6 text-white">
-                <h1 className="text-white my-12">
-                  Informações do participante
-                </h1>
-
-                <h2 className="text-center mt-3">Ingresso : Inscrição</h2>
-
-                <div className="space-y-6">
-                  <div key="nome" className="flex flex-col">
-                    <label htmlFor="nome">
-                      Nome <span className="ml-1">*</span>
-                    </label>
-                    <input
-                      type="Text"
-                      name="nome"
-                      id="nome"
-                      className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
-                        nameError && " !border-red-500"
-                      }`}
-                      onChange={(e) => {
-                        setNameError(false);
-                        setName(e.target.value);
-                      }}
-                    />
-                  </div>
-
-                  <div key="sobrenome" className="flex flex-col">
-                    <label htmlFor="nome">
-                      Sobrenome <span className="ml-1">*</span>
-                    </label>
-                    <input
-                      type="Text"
-                      name="sobrenome"
-                      id="sobrenome"
-                      className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
-                        sobrenomeError && " !border-red-500"
-                      }`}
-                      onChange={(e) => {
-                        setSobrenomeError(false);
-                        setSobrenome(e.target.value);
-                      }}
-                    />
-                  </div>
-
-                  <div key="Email" className="flex flex-col">
-                    <label htmlFor="nome">
-                      E-mail <span className="ml-1">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      name="Email"
-                      id="Email"
-                      className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
-                        emailError && " !border-red-500"
-                      }`}
-                      onChange={(e) => {
-                        setEmailError(false);
-                        setEmail(e.target.value);
-                      }}
-                    />
-                  </div>
-
-                  <div key="tel" className="flex flex-col">
-                    <label htmlFor="nome">
-                      Telefone <span className="ml-1">*</span>
-                    </label>
-                    <input
-                      type="Text"
-                      name="tel"
-                      id="tel"
-                      className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
-                        telError && " !border-red-500"
-                      }`}
-                      onChange={(e) => {
-                        setTelError(false);
-                        setTel(e.target.value);
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="my-12 full flex justify-center">
-                {loading ? (
-                  <BounceLoader color="#70963F" size={60} />
-                ) : (
-                  <>
-                    <button
-                      onClick={checkOutFunction}
-                      className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 "
-                    >
-                      IR PARA PAGAMENTO
-                    </button>
-                  </>
+                    )
                 )}
+
+                <h1 className="mb-3 text-white">
+                  Após confirmarmos o pagamento, seu ingresso estará disponível
+                  em:
+                </h1>
+                <Link href="myTickets" passHref>
+                  <button className="bg-primary-500 mt-6 animate-pulse py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
+                    MEUS QRCODES
+                  </button>
+                </Link>
               </div>
-            </div>
+            ) : (
+              <div className="mt-6 ">
+                <div className="shadow-2xl overflow-hidden">
+                  <div className="w-full h-10 rounded-t-xl bg-primary-500 text-white overflow-hidden ">
+                    <div className="flex justify-between items-center h-full px-3">
+                      <p>Ingressos</p>
+
+                      <div>Cart R$ 26,00</div>
+                    </div>
+                  </div>
+
+                  <div className="border border-primary-500 overflow-hidden rounded-b-xl h-36 flex justify-between items-center">
+                    <div className="p-3">
+                      <p className="font-bold text-lg mb-3">Inscrição</p>
+                      <p>R$: 25,00 + R$1,00 - Taxa</p>
+                    </div>
+
+                    <div className="p-3 text-2xl h-full flex items-center">
+                      1
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 text-white">
+                  <h1 className="text-white my-12">
+                    Informações do participante
+                  </h1>
+
+                  <h2 className="text-center mt-3">Ingresso : Inscrição</h2>
+
+                  <div className="space-y-6">
+                    <div key="nome" className="flex flex-col">
+                      <label htmlFor="nome">
+                        Nome <span className="ml-1">*</span>
+                      </label>
+                      <input
+                        type="Text"
+                        name="nome"
+                        id="nome"
+                        className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
+                          nameError && " !border-red-500"
+                        }`}
+                        onChange={(e) => {
+                          setNameError(false);
+                          setName(e.target.value);
+                        }}
+                      />
+                    </div>
+
+                    <div key="sobrenome" className="flex flex-col">
+                      <label htmlFor="nome">
+                        Sobrenome <span className="ml-1">*</span>
+                      </label>
+                      <input
+                        type="Text"
+                        name="sobrenome"
+                        id="sobrenome"
+                        className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
+                          sobrenomeError && " !border-red-500"
+                        }`}
+                        onChange={(e) => {
+                          setSobrenomeError(false);
+                          setSobrenome(e.target.value);
+                        }}
+                      />
+                    </div>
+
+                    <div key="Email" className="flex flex-col">
+                      <label htmlFor="nome">
+                        E-mail <span className="ml-1">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        name="Email"
+                        id="Email"
+                        className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
+                          emailError && " !border-red-500"
+                        }`}
+                        onChange={(e) => {
+                          setEmailError(false);
+                          setEmail(e.target.value);
+                        }}
+                      />
+                    </div>
+
+                    <div key="tel" className="flex flex-col">
+                      <label htmlFor="nome">
+                        Telefone <span className="ml-1">*</span>
+                      </label>
+                      <input
+                        type="Text"
+                        name="tel"
+                        id="tel"
+                        className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
+                          telError && " !border-red-500"
+                        }`}
+                        onChange={(e) => {
+                          setTelError(false);
+                          setTel(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="my-12 full flex justify-center">
+                  {loading ? (
+                    <BounceLoader color="#70963F" size={60} />
+                  ) : (
+                    <>
+                      <button
+                        onClick={checkOutFunction}
+                        className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 "
+                      >
+                        IR PARA PAGAMENTO
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            )
+          ) : (
+            <div>Lotes Encerrados</div>
           )}
 
           <ToastContainer
