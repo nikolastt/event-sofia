@@ -90,9 +90,18 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
           </ItemMenuSideBar>
 
           <ItemMenuSideBar
-            content="QRcode"
+            content="Ler QRcode"
             active={path === "qrcode" ? true : false}
             href="/qrcode"
+            closeMenu={closeMenu}
+          >
+            <ImQrcode size={25} className="mx-3" />
+          </ItemMenuSideBar>
+
+          <ItemMenuSideBar
+            content="Meus QrCodes"
+            active={path === "myTickets" ? true : false}
+            href="/myTickets"
             closeMenu={closeMenu}
           >
             <ImQrcode size={25} className="mx-3" />

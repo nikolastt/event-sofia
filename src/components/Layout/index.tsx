@@ -1,17 +1,7 @@
-import { getSession, useSession } from "next-auth/react";
-import React, {
-  Component,
-  ElementRef,
-  PropsWithChildren,
-  ReactComponentElement,
-  useEffect,
-  useState,
-} from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import Header from "../Header";
 
 const LayoutApplication: React.FC<PropsWithChildren> = ({ children }) => {
-  const { data: session } = useSession();
-
   const [changeColor, setChangeColor] = useState(false);
 
   useEffect(() => {

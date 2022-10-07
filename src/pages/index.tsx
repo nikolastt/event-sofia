@@ -261,9 +261,11 @@ const Home: NextPage = () => {
 
             <div className="my-6 bg-white  py-12 max-w-[760px] mx-auto rounded-lg px-3 md:px-6 lg:container">
               <div className="flex mx-auto justify-center items-center  lg:w-1/4 lg:h-full">
-                <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
-                  COMPRAR INGRESSOS
-                </button>
+                <Link href="/checkOut">
+                  <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
+                    COMPRAR INGRESSOS
+                  </button>
+                </Link>
               </div>
               {/* <div className="max-w-[768px] mx-auto">
                 <h1>Inscrições</h1>

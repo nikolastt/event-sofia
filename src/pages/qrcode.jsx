@@ -5,7 +5,7 @@ import { MdFlipCameraIos } from "react-icons/md";
 import { BsCheckLg } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 
-import Layout from "../../components/Layout";
+import Layout from "../components/Layout";
 
 const QrReader = dynamic(
   () => import("react-qr-reader").then((mod) => mod.QrReader),
