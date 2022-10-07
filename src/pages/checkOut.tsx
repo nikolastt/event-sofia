@@ -189,12 +189,12 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
   return (
     <>
       <LayoutApplication>
-        <div className="min-h-[calc(100vh-79px)] mt-[79px] ">
+        <div className="min-h-[calc(100vh-79px)] mt-[79px] text-white">
           <div>
-            <h1>GEaan Evento - Inscrição</h1>
+            <h1 className="text-white">GEaan Evento - Inscrição</h1>
 
-            <span className=" text-center  text-text-gray flex flex-col items-center mt-6">
-              <AiOutlineCalendar size={20} className="text-black mb-2" />
+            <span className=" text-center  text-white flex flex-col items-center mt-6">
+              <AiOutlineCalendar size={20} className="text-white mb-2" />
               26/11/2022 - 7:30 - 17:00 GMT-3 <br />
             </span>
           </div>
@@ -202,30 +202,35 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
           {orgerQRCode.length >= 1 ? (
             <div className="flex flex-col items-center mt-6">
               <div>
-                <h1>Pagementos pendentes</h1>
+                <h1 className="text-white">Pagementos pendentes</h1>
               </div>
-              {orgerQRCode?.map((orderQRCode) => (
-                <div
-                  key={orderQRCode.imagemQrcode + new Date().getMilliseconds()}
-                  className="bg-primary-500 rounded-2xl p-10 mt-6  mb-6 w-full flex flex-col justify-center  max-w-[700px] mx-auto items-center "
-                >
-                  <div>
-                    <img src={orderQRCode.imagemQrcode}></img>
-                  </div>
+              {orgerQRCode?.map(
+                (orderQRCode) =>
+                  orderQRCode.imagemQrcode && (
+                    <div
+                      key={
+                        orderQRCode.imagemQrcode + new Date().getMilliseconds()
+                      }
+                      className="bg-primary-500 rounded-2xl p-10 mt-6  mb-6 w-full flex flex-col justify-center  max-w-[700px] mx-auto items-center "
+                    >
+                      <div>
+                        <img src={orderQRCode.imagemQrcode}></img>
+                      </div>
 
-                  <div className="w-full">
-                    <h1 className="my-6">Pix coopia e cola</h1>
-                    <p className="break-words ">{orderQRCode.qrcode}</p>
-                  </div>
-                </div>
-              ))}
+                      <div className="w-full">
+                        <h1 className="my-6">Pix Copia e Cola</h1>
+                        <p className="break-words ">{orderQRCode.qrcode}</p>
+                      </div>
+                    </div>
+                  )
+              )}
 
-              <h1 className="mb-3">
+              <h1 className="mb-3 text-white">
                 Após confirmarmos o pagamento, seu ingresso estará disponível
                 em:
               </h1>
               <Link href="myTickets" passHref>
-                <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
+                <button className="bg-primary-500 mt-6 animate-pulse py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
                   MEUS QRCODES
                 </button>
               </Link>
@@ -251,8 +256,10 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
                 </div>
               </div>
 
-              <div className="mt-6">
-                <h1>Informações do participante</h1>
+              <div className="mt-6 text-white">
+                <h1 className="text-white my-12">
+                  Informações do participante
+                </h1>
 
                 <h2 className="text-center mt-3">Ingresso : Inscrição</h2>
 
@@ -265,7 +272,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
                       type="Text"
                       name="nome"
                       id="nome"
-                      className={`bg-white shadow border border-black focus:outline-none px-3 py-1 rounded-lg ${
+                      className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
                         nameError && " !border-red-500"
                       }`}
                       onChange={(e) => {
@@ -283,7 +290,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
                       type="Text"
                       name="sobrenome"
                       id="sobrenome"
-                      className={`bg-white shadow border border-black focus:outline-none px-3 py-1 rounded-lg ${
+                      className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
                         sobrenomeError && " !border-red-500"
                       }`}
                       onChange={(e) => {
@@ -301,7 +308,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
                       type="email"
                       name="Email"
                       id="Email"
-                      className={`bg-white shadow border border-black focus:outline-none px-3 py-1 rounded-lg ${
+                      className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
                         emailError && " !border-red-500"
                       }`}
                       onChange={(e) => {
@@ -319,7 +326,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
                       type="Text"
                       name="tel"
                       id="tel"
-                      className={`bg-white shadow border border-black focus:outline-none px-3 py-1 rounded-lg ${
+                      className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg ${
                         telError && " !border-red-500"
                       }`}
                       onChange={(e) => {
@@ -331,7 +338,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
                 </div>
               </div>
 
-              <div className="mt-6 full flex justify-center">
+              <div className="my-12 full flex justify-center">
                 {loading ? (
                   <BounceLoader color="#70963F" size={60} />
                 ) : (

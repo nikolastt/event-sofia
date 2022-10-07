@@ -15,8 +15,8 @@ const NotLogin: React.FC = () => {
       className="w-full h-screen bg-cow bg-cover  md:bg-center bg-no-repeat flex items-center "
     >
       <LayoutApplication>
-        <div className=" pt-[200px] flex items-center justify-center h-full px-6">
-          <div className="w-full max-w-[700px] h-full bg-white/70 backdrop-blur-sm flex flex-col items-center rounded-3xl">
+        <div className=" pt-[200px] flex items-center justify-center h-full px-6 ">
+          <div className="w-full max-w-[700px] h-full bg-white/20 backdrop-blur-xl flex flex-col items-center rounded-3xl ">
             <p className="text-center text-3xl pt-20">Log in</p>
 
             <p className="pt-12 text-xl font-light">Faça login utilizando </p>

@@ -71,7 +71,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
         ) : (
           <button
             onClick={() => signIn("google")}
-            className="py-2 mx-auto flex justify-between px-6 bg-white rounded-md w-3/4 shadow-lg shadow-white/50"
+            className="py-2 mx-auto flex justify-between items-center px-6 bg-white rounded-md w-3/4 shadow-lg shadow-white/50 text-black"
           >
             Login com <FcGoogle size={30} />
           </button>
@@ -89,14 +89,16 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
             <AiFillHome size={30} className="mx-3" />
           </ItemMenuSideBar>
 
-          <ItemMenuSideBar
-            content="Ler QRcode"
-            active={path === "qrcode" ? true : false}
-            href="/qrcode"
-            closeMenu={closeMenu}
-          >
-            <ImQrcode size={30} className="mx-3" />
-          </ItemMenuSideBar>
+          {session?.user?.email === "nikolasbitencourtt@gmail.com" && (
+            <ItemMenuSideBar
+              content="Ler QRcode"
+              active={path === "qrcode" ? true : false}
+              href="/qrcode"
+              closeMenu={closeMenu}
+            >
+              <ImQrcode size={30} className="mx-3" />
+            </ItemMenuSideBar>
+          )}
 
           <ItemMenuSideBar
             content="Meus QrCodes"

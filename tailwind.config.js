@@ -11,7 +11,7 @@ module.exports = {
         "text-gray": "#69737A",
       },
       backgroundImage: {
-        cow: "url('/images/cow.jpg')",
+        cow: "url('/images/cow-web.webp')",
       },
     },
   },

@@ -19,24 +19,27 @@ const MyTickets: React.FC<IMyTickets> = ({ orders }) => {
 
   const [userOrders, setUserOrders] = useState<IOrders[]>(JSON.parse(orders));
 
+  console.log(userOrders);
+
   return (
     <LayoutApplication>
       <div className="min-h-[calc(100vh-79px)] mt-[79px]">
-        <h1 className="mb-6">Meus ingressos</h1>
+        <h1 className="mb-6 text-white">Meus ingressos</h1>
 
-        <div>
-          <h1 className="mt-12">Você não possui nenhum ingresso !</h1>
-        </div>
+        {userOrders.length < 1 && (
+          <div>
+            <h1 className="mt-12 text-white">
+              Você não possui nenhum ingresso !
+            </h1>
+          </div>
+        )}
 
         {userOrders.map((order) => {
-          if (order.status === "pago") {
-            return (
-              <>
-                <div
-                  key={order.time.toString()}
-                  className="bg-primary-500 rounded-2xl h-52 flex mb-6  max-w-[700px] mx-auto "
-                >
-                  <div className=" flex items-center justify-center pl-6 md:pl-0 md:w-1/2 h-full ">
+          return (
+            <div key={order.time.toString()}>
+              <div className="bg-primary-500 rounded-2xl p-6 flex flex-col mb-6  max-w-[700px] mx-auto ">
+                <div className="flex w-full justify-between">
+                  <div className=" flex items-center justify-center  md:pl-0 md:w-1/2 h-full ">
                     <div>
                       <QRCode
                         style={{
@@ -50,21 +53,27 @@ const MyTickets: React.FC<IMyTickets> = ({ orders }) => {
                     </div>
                   </div>
 
-                  <div className="text-white  w-1/2 flex flex-col items-center">
+                  <div className="text-white  w-1/2 flex flex-col items-center  justify-center">
                     <h2 className="mt-6 font-bold text-2xl ">Geaan Leite</h2>
 
-                    <span className=" text-center  text-white flex flex-col items-center mt-6">
+                    <span className=" text-center  text-white flex flex-col items-center ">
                       <AiOutlineCalendar
                         size={20}
-                        className="text-black mb-2"
+                        className="text-white mb-2 mt-6"
                       />
-                      26/11/2022 - 7:30 - 17:00 GMT-3 <br />
+                      26/11/2022 - 7:30 - 17:00 <br />
                     </span>
                   </div>
                 </div>
-              </>
-            );
-          }
+
+                <div className="mt-6">
+                  <p className="font-light text-lg text-center text-slate-900">
+                    Apresentar na entrada do evento !
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
         })}
       </div>
     </LayoutApplication>
@@ -93,7 +102,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   let ordersUser: IOrders[] = [];
   const ordersRef = collection(db, "orders");
-  const q = query(ordersRef, where("userId", "==", userId));
+  const q = query(
+    ordersRef,
+    where("userId", "==", userId),
+    where("status", "==", "pago")
+  );
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     ordersUser.push({ ...doc.data(), txid: doc.id } as IOrders);

@@ -16,12 +16,17 @@ import IconGmail from "../../public/images/gmailIcon.png";
 import IconWpp from "../../public/images/wppIcon.png";
 
 import { motion } from "framer-motion";
+import Head from "next/head";
 
 const Home: NextPage = () => {
   return (
     <>
+      <Head>
+        <title>Geaan Eventos</title>
+        <meta name="theme-color" content="#70963F"></meta>
+      </Head>
       <div className="w-full h-screen bg-cover absolute top-0 ">
-        <div className="w-full h-full bg-gradient-to-b from-transparent  to-gray-300"></div>
+        <div className="w-full h-full bg-gray-900"></div>
       </div>
       <LayoutApplication>
         <div className="relative  max-w-full min-h-screen overflow-x-hidden ">
@@ -89,7 +94,7 @@ const Home: NextPage = () => {
             >
               <div className="max-w-[768px] mx-auto">
                 <h1 className="text-center">Sobre o evento</h1>
-                <p className="text-justify mt-6 leading-relaxed">
+                <p className="text-justify mt-6 leading-relaxed text-black">
                   Sejam bem vindos ao{" "}
                   <span className="font-semibold text-primary-500">
                     Milk Days 2022!
@@ -114,7 +119,7 @@ const Home: NextPage = () => {
                         className="text-center text-primary-500 "
                       />
                     </span>
-                    <h2 className="text-center  ">Local do evento</h2>
+                    <h2 className="text-center text-black ">Local do evento</h2>
                     <br />
                     <span className="text-blue-400 text-center w-full  justify-center flex hover:underline ">
                       Puc minas, Praça da liberdade auditório 1, rua Sergipe,
@@ -126,7 +131,7 @@ const Home: NextPage = () => {
                   <h2 className="text-center text-xl mb-3">Organizador</h2>
                   GEAAN Leite- Grupo de estudos aplicados ao agronegócio <br />
                 </div> */}
-                <div className="grid sm:grid-cols-2 gap-3 items-center  mt-6 w-full ">
+                <div className="grid sm:grid-cols-2 gap-3 items-center  mt-6 w-full  text-black">
                   <Link
                     href="https://www.instagram.com/geaanleitepraca/"
                     target="_blank"
@@ -145,7 +150,7 @@ const Home: NextPage = () => {
                         duration: 0.8,
                       }}
                       target="_blank"
-                      className="h-[110px] shadow-lg py-3 rounded-md"
+                      className="h-[120px] shadow-lg py-3 rounded-md"
                     >
                       <div className="relative w-[30px] h-[30px] mx-auto mt-6 ">
                         <Image
@@ -155,7 +160,7 @@ const Home: NextPage = () => {
                         />
                       </div>
 
-                      <div className="flex justify-center">
+                      <div className="flex justify-center pt-3">
                         <span className=" ">@geaanleitepraca</span>
                       </div>
                     </motion.a>
@@ -179,7 +184,7 @@ const Home: NextPage = () => {
                         duration: 0.8,
                       }}
                       target="_blank"
-                      className="h-[110px] shadow-lg py-3 rounded-md"
+                      className="h-[120px] shadow-lg py-3 rounded-md"
                     >
                       <div className="relative w-[30px] h-[30px] mx-auto mt-6">
                         <Image
@@ -190,7 +195,7 @@ const Home: NextPage = () => {
                       </div>
 
                       <div className="flex justify-center">
-                        <span className=" ">geaanleiteppl@gmail.com</span>
+                        <span className=" pt-3">geaanleiteppl@gmail.com</span>
                       </div>
                     </motion.a>
                   </Link>
@@ -209,7 +214,7 @@ const Home: NextPage = () => {
                         duration: 0.8,
                       }}
                       target="_blank"
-                      className="h-[110px] shadow-lg py-3 rounded-md"
+                      className="h-[120px] shadow-lg py-3 rounded-md"
                     >
                       <div className="flex flex-col items-center mt-6">
                         <div className="relative w-[30px] h-[30px] ">
@@ -220,7 +225,7 @@ const Home: NextPage = () => {
                           />
                         </div>
 
-                        <span className=" ">Sofia: 31 99149-2727</span>
+                        <span className=" pt-3">Sofia: 31 99149-2727</span>
                       </div>
                     </motion.a>
                   </Link>
@@ -238,7 +243,7 @@ const Home: NextPage = () => {
                         duration: 0.8,
                       }}
                       target="_blank"
-                      className="h-[110px] shadow-lg py-3 rounded-md"
+                      className="h-[120px] shadow-lg py-3 rounded-md"
                     >
                       <div className="flex flex-col items-center mt-6">
                         <div className="relative w-[30px] h-[30px] ">
@@ -249,7 +254,7 @@ const Home: NextPage = () => {
                           />
                         </div>
 
-                        <span className=" ">João Pedro: 31 9930-2443</span>
+                        <span className=" pt-3">João Pedro: 31 9930-2443</span>
                       </div>
                     </motion.a>
                   </Link>
@@ -261,30 +266,12 @@ const Home: NextPage = () => {
               </div>
             </motion.div>
 
-            <div className="my-6 bg-white  py-12 max-w-[760px] mx-auto rounded-lg px-3 md:px-6 lg:container">
-              <div className="flex mx-auto justify-center items-center  lg:w-1/4 lg:h-full">
-                <Link href="/checkOut">
-                  <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 animate-pulse">
-                    COMPRAR INGRESSOS
-                  </button>
-                </Link>
-              </div>
-              {/* <div className="max-w-[768px] mx-auto">
-                <h1>Inscrições</h1>
-                <div className="px-3 mt-6">
-                  <CardBuyTickets
-                    priceOfTicket={5}
-                    title="Associados Geaan Leite"
-                  />
-                </div>
-
-                <div className="px-3 mt-6">
-                  <CardBuyTickets
-                    priceOfTicket={5}
-                    title="Associados Geaan Leite"
-                  />
-                </div>
-              </div> */}
+            <div className="flex mx-auto justify-center items-center  lg:w-1/4 lg:h-full pt-12 pb-6">
+              <Link href="/checkOut">
+                <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 animate-pulse">
+                  COMPRAR INGRESSOS
+                </button>
+              </Link>
             </div>
           </div>
         </div>
