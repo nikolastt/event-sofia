@@ -132,6 +132,13 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
           setCheckOutSuccess(true);
           notifySuccess();
           setOrderQRCode([...orgerQRCode, response.data.imagemQrcode]);
+          setOrderQRCode((orders) => [
+            ...orders,
+            {
+              imagemQrcode: response.data.imagemQrcode,
+              qrcode: response.data.qrcode,
+            },
+          ]);
         })
         .catch(function (error) {
           notifyError();
