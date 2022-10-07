@@ -192,24 +192,8 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
             </span>
           </div>
 
-          <div className="bg-primary-500 rounded-2xl  mt-6  mb-6 w-full   max-w-[700px]  items-center h-60">
-            <div>{/* <img src={orderQRCode.imagemQrcode}></img> */}</div>
-
-            <div className="bg-primary-500 rounded-2xl p-10 mt-6  mb-6 w-full flex flex-col justify-center  max-w-[700px] mx-auto items-center ">
-              <div>{/* <img src={orderQRCode.imagemQrcode}></img> */}</div>
-
-              <div className="w-full">
-                <h1 className="mb-6">Pix coopia e cola</h1>
-                <p className="break-words ">
-                  00020101021226900014BR.GOV.BCB.PIX2568qrcodes-pix-h.gerencianet.com.br/v2/59b71e7751624362823d7dfb222717855204000053039865802BR5914GERENCIANET
-                  SA6010OURO PRETO62070503***63049632
-                </p>
-              </div>
-            </div>
-          </div>
-
           {orgerQRCode.length >= 1 ? (
-            <div className="flex flex-col items-center mt-12">
+            <div className="flex flex-col items-center mt-6">
               <div>
                 <h1>Pagementos pendentes</h1>
               </div>

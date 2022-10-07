@@ -65,9 +65,11 @@ const Home: NextPage = () => {
               </div>
 
               <div className="flex justify-center items-center mt-12 lg:w-1/4 lg:h-full">
-                <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
-                  COMPRAR INGRESSOS
-                </button>
+                <Link href="/checkOut" passHref>
+                  <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
+                    COMPRAR INGRESSOS
+                  </button>
+                </Link>
               </div>
             </motion.div>
 
