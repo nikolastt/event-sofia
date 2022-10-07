@@ -79,7 +79,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
 
         <hr className="w-[80%] mx-auto mt-12  " />
 
-        <div className="space-y-2 mt-12">
+        <div className="space-y-6 mt-12">
           <ItemMenuSideBar
             content="Home"
             active={path === "" ? true : false}
@@ -118,7 +118,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
 
           {status === "authenticated" && (
             <div
-              className={`flex items-center text-white py-2 rounded-lg hover:bg-[#305714]  cursor-pointer `}
+              className={`h-[40px] flex items-center text-white border-l-8 border-transparent font-light   py-2 rounded-r-lg hover:bg-gray-800/50  cursor-pointer `}
               onClick={() => {
                 closeMenu;
                 signOut();

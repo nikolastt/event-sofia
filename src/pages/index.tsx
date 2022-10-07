@@ -24,8 +24,8 @@ const Home: NextPage = () => {
         <div className="w-full h-full bg-gradient-to-b from-transparent  to-gray-300"></div>
       </div>
       <LayoutApplication>
-        <div className="relative  w-full min-h-screen ">
-          <div className=" w-full min-h-[calc(100vh-79px)] mt-[79px] lg:px-6 xl:px-0">
+        <div className="relative  max-w-full min-h-screen overflow-x-hidden ">
+          <div className=" max-w-full min-h-[calc(100vh-79px)] overflow-x-hidden mt-[79px] lg:px-6 xl:px-0">
             <div className="pt-6">
               <div className=" relative h-[200px] sm:h-[250px] w-full max-w-[768px] overflow-hidden rounded-lg mx-auto md:h-[250px] lg:h-[480px] lg:container">
                 <Image src={bannerGeaan} alt="Banner" layout="fill" />
@@ -66,7 +66,7 @@ const Home: NextPage = () => {
 
               <div className="flex justify-center items-center mt-12 lg:w-1/4 lg:h-full">
                 <Link href="/checkOut" passHref>
-                  <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
+                  <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 animate-pulse">
                     COMPRAR INGRESSOS
                   </button>
                 </Link>
@@ -264,7 +264,7 @@ const Home: NextPage = () => {
             <div className="my-6 bg-white  py-12 max-w-[760px] mx-auto rounded-lg px-3 md:px-6 lg:container">
               <div className="flex mx-auto justify-center items-center  lg:w-1/4 lg:h-full">
                 <Link href="/checkOut">
-                  <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
+                  <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 animate-pulse">
                     COMPRAR INGRESSOS
                   </button>
                 </Link>

@@ -24,6 +24,10 @@ const MyTickets: React.FC<IMyTickets> = ({ orders }) => {
       <div className="min-h-[calc(100vh-79px)] mt-[79px]">
         <h1 className="mb-6">Meus ingressos</h1>
 
+        <div>
+          <h1 className="mt-12">Você não possui nenhum ingresso !</h1>
+        </div>
+
         {userOrders.map((order) => {
           if (order.status === "pago") {
             return (
@@ -79,7 +83,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!session) {
     return {
       redirect: {
-        destination: "/notlogin",
+        destination: "/notLogin",
         permanent: false,
       },
     };

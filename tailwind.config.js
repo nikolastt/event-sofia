@@ -10,7 +10,11 @@ module.exports = {
         "primary-500": "#70963F",
         "text-gray": "#69737A",
       },
+      backgroundImage: {
+        cow: "url('/images/cow.jpg')",
+      },
     },
   },
+
   plugins: [],
 };
