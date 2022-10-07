@@ -88,7 +88,7 @@ const Home: NextPage = () => {
             }}
             className="mt-6 bg-white py-12 px-6 max-w-[768px] mx-auto rounded-lg lg:container"
           >
-            <div className="max-w-[768px] mx-auto">
+            <div className="max-w-[768px] h-full mx-auto">
               <h1 className="text-center">Sobre o evento</h1>
               <p className="text-justify mt-6 leading-relaxed text-black">
                 Sejam bem vindos ao{" "}
@@ -123,7 +123,7 @@ const Home: NextPage = () => {
                   <h2 className="text-center text-xl mb-3">Organizador</h2>
                   GEAAN Leite- Grupo de estudos aplicados ao agronegócio <br />
                 </div> */}
-              <div className="grid sm:grid-cols-2 gap-3 items-center  mt-6 w-full overflow-y-hidden  text-black">
+              <div className="grid h-full  sm:grid-cols-2  gap-3 items-center  mt-6 w-full overflow-y-visible text-black">
                 <Link
                   href="https://www.instagram.com/geaanleitepraca/"
                   target="_blank"
@@ -208,7 +208,7 @@ const Home: NextPage = () => {
                     target="_blank"
                     className="h-[120px] shadow-lg py-3 rounded-md"
                   >
-                    <div className="flex flex-col items-center mt-6">
+                    <div className="flex flex-col items-center mt-6 w-full">
                       <div className="relative w-[30px] h-[30px] ">
                         <Image
                           src={IconWpp}
