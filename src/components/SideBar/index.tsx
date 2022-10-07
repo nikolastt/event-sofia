@@ -6,7 +6,7 @@ import { BiExit } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import ItemMenuSideBar from "../ItemMenuSideBar";
 import { useRouter } from "next/router";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineDollar } from "react-icons/ai";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { signIn } from "next-auth/react";
@@ -33,7 +33,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
       <div
         className={`min-h-screen fixed  right-0 bottom-0 top-0 w-[250px] ${
           menuIsOpen ? "mr-0 " : "-mr-[250px]"
-        }   bg-gray-800/50 backdrop-blur-md ease-in-out duration-300 pt-[79px] border-l-[1px] border-l-tertiary-800 lg:left-0 z-20 lg:rounded-br-xl lg:rounded-l-none rounded-l-xl`}
+        }   bg-gray-800/50 backdrop-blur-md ease-in-out duration-300 pt-[79px] border-l-[1px] border-l-tertiary-800 lg:left-0 z-30 lg:rounded-br-xl lg:rounded-l-none rounded-l-xl`}
       >
         <AiOutlineClose
           size={25}
@@ -73,7 +73,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
             onClick={() => signIn("google")}
             className="py-2 mx-auto flex justify-between px-6 bg-white rounded-md w-3/4 shadow-lg shadow-white/50"
           >
-            Login com <FcGoogle size={25} />
+            Login com <FcGoogle size={30} />
           </button>
         )}
 
@@ -86,7 +86,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
             href="/"
             closeMenu={closeMenu}
           >
-            <AiFillHome size={25} className="mx-3" />
+            <AiFillHome size={30} className="mx-3" />
           </ItemMenuSideBar>
 
           <ItemMenuSideBar
@@ -95,7 +95,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
             href="/qrcode"
             closeMenu={closeMenu}
           >
-            <ImQrcode size={25} className="mx-3" />
+            <ImQrcode size={30} className="mx-3" />
           </ItemMenuSideBar>
 
           <ItemMenuSideBar
@@ -104,7 +104,16 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
             href="/myTickets"
             closeMenu={closeMenu}
           >
-            <ImQrcode size={25} className="mx-3" />
+            <ImQrcode size={30} className="mx-3" />
+          </ItemMenuSideBar>
+
+          <ItemMenuSideBar
+            content="Comprar Ingresso"
+            active={path === "checkOut" ? true : false}
+            href="/checkOut"
+            closeMenu={closeMenu}
+          >
+            <AiOutlineDollar size={30} className="mx-3" />
           </ItemMenuSideBar>
 
           {status === "authenticated" && (
@@ -115,7 +124,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
                 signOut();
               }}
             >
-              <BiExit size={25} className="mx-3" />
+              <BiExit size={30} className="mx-3" />
               <span>Sair</span>
             </div>
           )}
@@ -126,7 +135,7 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
       <div
         className={` ${
           !menuIsOpen && "hidden"
-        } fixed left-0 bottom-0 min-w-[calc(100%)] backdrop-blur-sm h-full ease-out duration-300 z-10 lg:hidden`}
+        } fixed left-0 bottom-0 min-w-[calc(100%)]  bg-black/90 h-full ease-out duration-300 z-20 lg:hidden`}
         onClick={closeMenu}
       ></div>
     </>

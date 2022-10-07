@@ -36,7 +36,10 @@ const Qrcode = (props) => {
     facingMode: isBackCamera,
   };
 
-  const handleResult = (result) => {
+  const handleResult = async (result) => {
+    const docRef = doc(db, "orders", result);
+    const docSnap = await getDoc(docRef);
+
     const user = getUser(result?.text);
 
     setData(result?.text);

@@ -41,7 +41,7 @@ const MyTickets: React.FC<IMyTickets> = ({ orders }) => {
                           width: "100%",
                         }}
                         size={150}
-                        value={order.txid + order.time}
+                        value={order.txid}
                       />
                     </div>
                   </div>
@@ -97,7 +97,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const orders = JSON.stringify(ordersUser);
 
-  // console.log(user);
   return {
     props: {
       orders,
