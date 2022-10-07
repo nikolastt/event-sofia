@@ -104,7 +104,10 @@ const Home: NextPage = () => {
                 nutrição e avaliação linear em vacas leiteiras. <br /> <br />
               </p>
               <div>
-                <a href="https://goo.gl/maps/2c9BGk3nf8goGusH7" target="blank">
+                <a
+                  href="https://www.google.com.br/maps/place/PUC+Minas+-+Unidade+Pra%C3%A7a+da+Liberdade/@-19.9332735,-43.9393424,17z/data=!3m1!4b1!4m5!3m4!1s0xa699dc57d681cf:0x897f2f71ae2c8900!8m2!3d-19.9332786!4d-43.9371484"
+                  target="blank"
+                >
                   <span className="flex w-full justify-center ">
                     <HiLocationMarker
                       size={35}
@@ -114,8 +117,8 @@ const Home: NextPage = () => {
                   <h2 className="text-center text-black ">Local do evento</h2>
                   <br />
                   <span className="text-blue-400 text-center w-full  justify-center flex hover:underline ">
-                    Puc minas, Praça da liberdade auditório 1, rua Sergipe, 790
-                    funcionários Belo Horizonte-mg
+                    Puc minas, Praça da liberdade rua Sergipe, 790 funcionários
+                    Belo Horizonte-mg
                   </span>
                 </a>
               </div>

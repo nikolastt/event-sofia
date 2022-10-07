@@ -22,6 +22,8 @@ import { BounceLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { CopyToClipboard } from "react-copy-to-clipboard";
+
 interface ICheckOut {
   userId: string;
   orders: string;
@@ -164,6 +166,17 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
       progress: undefined,
     });
 
+  const notifyCopySuccess = () =>
+    toast.success("🐄 Wow Qr Code Copiado!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
   const notifyError = () =>
     toast.error("🐄 Algo deu errado !", {
       position: "top-right",
@@ -217,9 +230,23 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
                         <img src={orderQRCode.imagemQrcode}></img>
                       </div>
 
-                      <div className="w-full">
-                        <h1 className="my-6">Pix Copia e Cola</h1>
-                        <p className="break-words ">{orderQRCode.qrcode}</p>
+                      <div className="w-full cursor-pointer">
+                        <CopyToClipboard
+                          onCopy={() => notifyCopySuccess()}
+                          text={orderQRCode.qrcode}
+                        >
+                          <h1 className="my-6 cursor-pointer">
+                            Qlique para copiar Pix Copia e Cola
+                          </h1>
+                        </CopyToClipboard>
+                        <CopyToClipboard
+                          onCopy={() => notifyCopySuccess()}
+                          text={orderQRCode.qrcode}
+                        >
+                          <p className="break-words cursor-pointer">
+                            {orderQRCode.qrcode}
+                          </p>
+                        </CopyToClipboard>
                       </div>
                     </div>
                   )
