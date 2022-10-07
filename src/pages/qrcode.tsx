@@ -303,13 +303,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const response = await getDoc(autorizedReadRef);
   const emailsAutorized = response.data();
   let autorized = false;
-  Array(emailsAutorized?.email).map((email) => {
+  const arrayEmails = emailsAutorized?.emails as Array<string>;
+  arrayEmails?.map((email) => {
     if (email === session?.user?.email) {
       autorized = true;
     }
   });
 
   if (!autorized) {
+    console.log("not aut");
     return {
       redirect: {
         destination: "/",

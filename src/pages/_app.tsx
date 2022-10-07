@@ -1,12 +1,21 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+    <>
+      <Head>
+        <title>Geaan Eventos</title>
+        <meta name="theme-color" content="#70963F" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="#70963F" />
+        <meta name="msapplication-navbutton-color" content="#70963F" />
+      </Head>
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
+    </>
   );
 }
 
