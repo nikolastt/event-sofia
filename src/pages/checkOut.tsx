@@ -124,7 +124,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
 
       const options = {
         method: "POST",
-        url: "https://geaan-leite.herokuapp.com",
+        url: "https://geaan-leite.herokuapp.com/",
         headers: { "Content-Type": "application/json" },
         data: { quantity: "1", userId: userId },
       };
