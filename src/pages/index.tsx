@@ -29,7 +29,7 @@ const Home: NextPage = () => {
       </Head>
 
       <LayoutApplication>
-        <div className=" max-w-full min-h-[calc(100vh-79px)] overflow-x-hidden mt-[79px] lg:px-6 xl:px-0">
+        <div className=" max-w-full min-h-[calc(100vh-79px)] overflow-x-hidden overflow-y-hidden mt-[79px] lg:px-6 xl:px-0">
           <div className="pt-6">
             <div className=" relative h-[200px] sm:h-[250px] w-full max-w-[768px] overflow-hidden rounded-lg mx-auto md:h-[250px] lg:h-[480px] lg:container">
               <Image src={bannerGeaan} alt="Banner" layout="fill" />
@@ -192,7 +192,11 @@ const Home: NextPage = () => {
                   </motion.a>
                 </Link>
 
-                <Link href="https://wa.me/5531991492727?text=Olá%20Sofia%20Valle!%20vim%20pelo%20site%20do%20Geaan%20Eventos%20e%20gostaria%20de%20saber%20mais%20informações!">
+                <Link
+                  href="https://wa.me/5531991492727?text=Olá%20Sofia%20Valle!%20vim%20pelo%20site%20do%20Geaan%20Eventos%20e%20gostaria%20de%20saber%20mais%20informações!"
+                  target="_blank"
+                  passHref
+                >
                   <motion.a
                     initial={{
                       opacity: 0,
@@ -221,7 +225,11 @@ const Home: NextPage = () => {
                     </div>
                   </motion.a>
                 </Link>
-                <Link href="https://wa.me/553199302443?text=Olá%20João%20Pedro!%20vim%20pelo%20site%20do%20Geaan%20Eventos%20e%20gostaria%20de%20saber%20mais%20informações!">
+                <Link
+                  href="https://wa.me/553199302443?text=Olá%20João%20Pedro!%20vim%20pelo%20site%20do%20Geaan%20Eventos%20e%20gostaria%20de%20saber%20mais%20informações!"
+                  target="_blank"
+                  passHref
+                >
                   <motion.a
                     initial={{
                       opacity: 0,
