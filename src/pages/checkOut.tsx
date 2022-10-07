@@ -137,7 +137,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
 
           {imageQRCode.length >= 1 ? (
             <div className="flex flex-col items-center mt-12">
-              <div >
+              <div>
                 <h1>Pagementos pendentes</h1>
               </div>
               {imageQRCode?.map((image) => (
@@ -150,14 +150,15 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
               ))}
 
               <h1 className="mb-3">
-                Após confirmarmos o pagamento, seu ingresso estará
-                disponível em:
+                Após confirmarmos o pagamento, seu ingresso estará disponível
+                em:
               </h1>
-              <button onClick={checkOutFunction} className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
-                  MEUS QRCODES ->
-                </button>
-
-
+              <button
+                onClick={checkOutFunction}
+                className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 "
+              >
+                MEUS QRCODES
+              </button>
             </div>
           ) : (
             <div className="mt-6 ">
@@ -261,8 +262,11 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
               </div>
 
               <div className="mt-6 full flex justify-center">
-                <button onClick={checkOutFunction} className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 ">
-                  IR PARA PAGAMENTO ->
+                <button
+                  onClick={checkOutFunction}
+                  className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 "
+                >
+                  IR PARA PAGAMENTO
                 </button>
               </div>
             </div>
