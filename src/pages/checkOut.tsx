@@ -285,8 +285,8 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
               </Link>
             </div>
           ) : (
-            <div className="mt-6 ">
-              <div className="shadow-2xl overflow-hidden">
+            <div className="mt-6  ">
+              <div className="shadow-2xl overflow-hidden max-w-[500px] mx-auto">
                 <div className="w-full h-10 rounded-t-xl bg-primary-500 text-white overflow-hidden ">
                   <div className="flex justify-between items-center h-full px-3">
                     <p>Ingresso</p>
@@ -298,7 +298,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
                   </div>
                 </div>
 
-                <div className="border border-primary-500 overflow-hidden rounded-b-xl h-36 flex justify-center items-center">
+                <div className="border  border-primary-500 overflow-hidden rounded-b-xl h-36 flex justify-center items-center">
                   <div className="p-3 flex flex-col justify-center items-center">
                     <p className="font-bold text-lg mb-3">Inscrição</p>
                     <p>
@@ -318,7 +318,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
 
                 <h2 className="text-center mt-3">Ingresso : Inscrição</h2>
 
-                <div className="space-y-6">
+                <div className="gap-6 pt-6 grid md:grid-cols-2 max-w-7xl mx-auto ">
                   <div key="nome" className="flex flex-col">
                     <label htmlFor="nome">
                       Nome <span className="ml-1">*</span>
