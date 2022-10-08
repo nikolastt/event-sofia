@@ -8,6 +8,7 @@ import { db } from "../services/firebase";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   Timestamp,
@@ -27,6 +28,13 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 interface ICheckOut {
   userId: string;
   orders: string;
+  ticket: ITicket;
+}
+
+interface ITicket {
+  amount: number;
+  lote: string;
+  quantidade: number;
 }
 
 export interface IOrders {
@@ -47,7 +55,7 @@ interface IOrderQRCode {
   qrcode: string;
 }
 
-const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
+const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState(false);
   const [sobrenome, setSobrenome] = useState("");
@@ -199,12 +207,23 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
       progress: undefined,
     });
 
+  const taxa = () => {
+    if (ticket.amount === 25) {
+      return 1;
+    } else if (ticket.amount === 30) {
+      return 1.5;
+    } else if (ticket.amount === 35) {
+      return 2;
+    }
+    return 0;
+  };
+
   return (
     <>
       <LayoutApplication>
         <div className="min-h-[calc(100vh-79px)] mt-[79px] text-white">
           <div>
-            <h1 className="text-white">GEaan Evento - Inscrição</h1>
+            <h1 className="text-white">Geaan Evento - Inscrição</h1>
 
             <span className=" text-center  text-white flex flex-col items-center mt-6">
               <AiOutlineCalendar size={20} className="text-white mb-2" />
@@ -215,7 +234,10 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
           {orgerQRCode.length >= 1 ? (
             <div className="flex flex-col items-center mt-6">
               <div>
-                <h1 className="text-white">Pagementos pendentes</h1>
+                <h1 className="text-white">Pagamentos pendentes</h1>
+                <h1 className="mt-6 text-white font-light">
+                  Este QR Code expirará em 15 min
+                </h1>
               </div>
               {orgerQRCode?.map(
                 (orderQRCode) =>
@@ -267,19 +289,25 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders }) => {
               <div className="shadow-2xl overflow-hidden">
                 <div className="w-full h-10 rounded-t-xl bg-primary-500 text-white overflow-hidden ">
                   <div className="flex justify-between items-center h-full px-3">
-                    <p>Ingressos</p>
+                    <p>Ingresso</p>
 
-                    <div>Cart R$ 26,00</div>
+                    <div>
+                      Total: R${" "}
+                      {(ticket.amount + taxa()).toFixed(2).replace(".", ",")}
+                    </div>
                   </div>
                 </div>
 
-                <div className="border border-primary-500 overflow-hidden rounded-b-xl h-36 flex justify-between items-center">
-                  <div className="p-3">
+                <div className="border border-primary-500 overflow-hidden rounded-b-xl h-36 flex justify-center items-center">
+                  <div className="p-3 flex flex-col justify-center items-center">
                     <p className="font-bold text-lg mb-3">Inscrição</p>
-                    <p>R$: 25,00 + R$1,00 - Taxa</p>
+                    <p>
+                      R$: {String(ticket.amount.toFixed(2)).replace(".", ",")} +
+                      R$ {ticket.amount === 25 && "1,00"}
+                      {ticket.amount === 30 && "1,50"}{" "}
+                      {ticket.amount === 35 && "2,0"} - Taxa
+                    </p>
                   </div>
-
-                  <div className="p-3 text-2xl h-full flex items-center">1</div>
                 </div>
               </div>
 
@@ -430,10 +458,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const orders = JSON.stringify(ordersUser);
 
+  const ticketRef = doc(db, "ticket", "BiP3Q5KHDG8q0GBNnCuh");
+  const ticketResponse = await getDoc(ticketRef);
+  const ticket = ticketResponse.data();
+
   return {
     props: {
       userId,
       orders,
+      ticket,
     },
   };
 };
