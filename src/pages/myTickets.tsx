@@ -9,6 +9,7 @@ import { IOrders } from "./checkOut";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { AiOutlineCalendar } from "react-icons/ai";
+import Link from "next/link";
 
 interface IMyTickets {
   orders: string;
@@ -31,6 +32,13 @@ const MyTickets: React.FC<IMyTickets> = ({ orders }) => {
             <h1 className="mt-12 text-white">
               Você não possui nenhum ingresso !
             </h1>
+            <div className="flex mx-auto justify-center items-center  lg:w-1/4 lg:h-full pt-12 pb-6">
+              <Link href="/checkOut">
+                <button className="bg-primary-500 py-3 px-12 rounded-full text-white font-medium hover:scale-105 duration-300 animate-pulse">
+                  COMPRAR INGRESSOS
+                </button>
+              </Link>
+            </div>
           </div>
         )}
 

@@ -18,12 +18,14 @@ import {
 import { AiOutlineCalendar } from "react-icons/ai";
 import Link from "next/link";
 
-import { BounceLoader } from "react-spinners";
+import { BounceLoader, ClimbingBoxLoader } from "react-spinners";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import CountDown from "../components/CountDown/indext";
+import Qrcode from "./qrcode";
 
 interface ICheckOut {
   userId: string;
@@ -44,6 +46,7 @@ export interface IOrders {
   qrCode: {
     imagemQrcode: string;
     qrcode: string;
+    time: Timestamp;
   };
   quantity: string;
   status: string;
@@ -53,6 +56,7 @@ export interface IOrders {
 interface IOrderQRCode {
   imagemQrcode: string;
   qrcode: string;
+  time: number;
 }
 
 const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
@@ -76,11 +80,12 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
     const setOrders = () => {
       userOrders.forEach((order) => {
         if (order.status === "pending") {
-          setOrderQRCode((images) => [
-            ...images,
+          setOrderQRCode((qrCodes) => [
+            ...qrCodes,
             {
               imagemQrcode: order.qrCode.imagemQrcode,
               qrcode: order.qrCode.qrcode,
+              time: Number(order.qrCode.time),
             },
           ]);
         }
@@ -130,7 +135,8 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
 
       const options = {
         method: "POST",
-        url: "https://geaan-leite.herokuapp.com",
+        // url: "https://geaan-leite.herokuapp.com",
+        url: "http://localhost:3001/",
         headers: { "Content-Type": "application/json" },
         data: { quantity: "1", userId: userId },
       };
@@ -147,6 +153,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
             {
               imagemQrcode: response.data.imagemQrcode,
               qrcode: response.data.qrcode,
+              time: response.data.time,
             },
           ]);
         })
@@ -218,6 +225,8 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
     return 0;
   };
 
+  console.log(orgerQRCode);
+
   return (
     <>
       <LayoutApplication>
@@ -233,12 +242,6 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
 
           {orgerQRCode.length >= 1 ? (
             <div className="flex flex-col items-center mt-6">
-              <div>
-                <h1 className="text-white">Pagamentos pendentes</h1>
-                <h1 className="mt-6 text-white font-light">
-                  Este QR Code expirará em 15 min
-                </h1>
-              </div>
               {orgerQRCode?.map(
                 (orderQRCode) =>
                   orderQRCode.imagemQrcode && (
@@ -246,19 +249,25 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
                       key={
                         orderQRCode.imagemQrcode + new Date().getMilliseconds()
                       }
-                      className="bg-primary-500 rounded-2xl p-10 mt-6  mb-6 w-full flex flex-col justify-center  max-w-[700px] mx-auto items-center "
+                      className="bg-primary-500 rounded-2xl p-10  mb-6 w-full flex flex-col justify-center  max-w-[700px] mx-auto items-center "
                     >
+                      <div className="">
+                        <h1 className="text-white">Pagamentos pendentes</h1>
+                        <div className="py-3">
+                          <CountDown timer={orderQRCode.time} />
+                        </div>
+                      </div>
                       <div>
                         <img src={orderQRCode.imagemQrcode}></img>
                       </div>
 
-                      <div className="w-full cursor-pointer">
+                      <div className="w-full cursor-pointer  p-3 rounded-lg ">
                         <CopyToClipboard
                           onCopy={() => notifyCopySuccess()}
                           text={orderQRCode.qrcode}
                         >
                           <h1 className="my-6 cursor-pointer">
-                            Clique para copiar Pix Copia e Cola
+                            Clique para copiar o Código!
                           </h1>
                         </CopyToClipboard>
                         <CopyToClipboard
