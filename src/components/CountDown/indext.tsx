@@ -19,7 +19,6 @@ const CountDown: React.FC<ICountdown> = ({ timer }) => {
       setTime(time - 1000);
     }, 1000);
     if (time < 0) {
-      alert("Tempo acabou");
     }
   }, [time]);
 
@@ -41,13 +40,17 @@ const CountDown: React.FC<ICountdown> = ({ timer }) => {
   return (
     <div className="flex justify-center">
       <div>
-        <h2 className="text-lg">
-          Este Qr Code expirará em :{" "}
-          <span className="text-red-800 font-bold">
-            {minutes < 10 ? "0" + minutes : minutes} :{" "}
-            {seconds < 10 ? "0" + seconds : seconds}
-          </span>
-        </h2>
+        {time < 0 ? (
+          <h2 className="">Este QR Code expirou</h2>
+        ) : (
+          <h2 className="text-lg">
+            Este Qr Code expirará em :{" "}
+            <span className="text-red-800 font-bold">
+              {minutes < 10 ? "0" + minutes : minutes} :{" "}
+              {seconds < 10 ? "0" + seconds : seconds}
+            </span>
+          </h2>
+        )}
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <meta name="theme-color" content="#70963F" />
         <meta name="apple-mobile-web-app-status-bar-style" content="#70963F" />
         <meta name="msapplication-navbutton-color" content="#70963F" />
+        <link rel="icon" type="image/png" href="./images/iconBar.png" />
       </Head>
       <SessionProvider session={session}>
         <Component {...pageProps} />
