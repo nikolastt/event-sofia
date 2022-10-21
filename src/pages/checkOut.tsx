@@ -279,12 +279,12 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
       setCupomError(true);
       setIsLoadingVerifyCupom(false);
     } else {
-      const cupomGeaanBetimRef = doc(db, "cupons", "geaanbetim15");
-      const cupomGeaanBetimResponse = await getDoc(cupomGeaanBetimRef);
-      const cupomGeaanBetim = cupomGeaanBetimResponse.data();
+      const cupomGeaanRef = doc(db, "cupons", "geaan15");
+      const cupomGeaanResponse = await getDoc(cupomGeaanRef);
+      const cupomGeaan = cupomGeaanResponse.data();
 
-      if (cupom === cupomGeaanBetim?.name) {
-        if (cupomGeaanBetim?.qnt > 0) {
+      if (cupom === cupomGeaan?.name) {
+        if (cupomGeaan?.qnt > 0) {
           setCupomVerify(true);
           setMessageCupomVerifyInScreen(true);
           setIsLoadingVerifyCupom(false);
