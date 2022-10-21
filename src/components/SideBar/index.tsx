@@ -6,9 +6,10 @@ import { BiExit } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
 import ItemMenuSideBar from "../ItemMenuSideBar";
 import { useRouter } from "next/router";
-import { AiOutlineClose, AiOutlineDollar } from "react-icons/ai";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
+import { AiOutlineClose, AiOutlineDollar } from "react-icons/ai";
+import { MdPayment } from "react-icons/md";
 import { signIn } from "next-auth/react";
 
 interface ISideBar {
@@ -117,6 +118,18 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
           >
             <AiOutlineDollar size={30} className="mx-3" />
           </ItemMenuSideBar>
+
+          {session?.user?.email === "nikolasbitencourtt@gmail.com" ||
+            (session?.user?.email === "sofiavalle1602@gmail.com" && (
+              <ItemMenuSideBar
+                content="Total compras"
+                active={path === "payments" ? true : false}
+                href="/payments"
+                closeMenu={closeMenu}
+              >
+                <MdPayment size={30} className="mx-3" />
+              </ItemMenuSideBar>
+            ))}
 
           {status === "authenticated" && (
             <div

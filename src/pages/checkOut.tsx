@@ -25,7 +25,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import CountDown from "../components/CountDown/indext";
-import Qrcode from "./qrcode";
+import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
 
 interface ICheckOut {
   userId: string;
@@ -69,11 +69,14 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
   const [tel, setTel] = useState("");
   const [telError, setTelError] = useState(false);
   const [checkOutSuccess, setCheckOutSuccess] = useState(true);
-
+  const [cupom, setCupom] = useState("");
+  const [cupomError, setCupomError] = useState(false);
+  const [cupomVerify, setCupomVerify] = useState(false);
+  const [messageCupomVerifyInScreen, setMessageCupomVerifyInScreen] =
+    useState(false);
+  const [isLoadingVerifyCupom, setIsLoadingVerifyCupom] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [orgerQRCode, setOrderQRCode] = useState<IOrderQRCode[]>([]);
-
   const userOrders: IOrders[] = JSON.parse(orders);
 
   useEffect(() => {
@@ -123,49 +126,73 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
 
   const checkOutFunction = async () => {
     setLoading(true);
-
     const isInvalid = checkInputs();
 
-    if (!isInvalid) {
-      const userRef = doc(db, "users", userId);
-      await updateDoc(userRef, {
-        sobrenome,
-        tel,
-      });
+    try {
+      if (cupom !== "" && !messageCupomVerifyInScreen) {
+        await verifyCupom();
+        if (cupomVerify === false) {
+          throw new Error();
+        }
+      }
 
-      const options = {
-        method: "POST",
-        url: "https://geaan-leite.herokuapp.com",
-        headers: { "Content-Type": "application/json" },
-        data: { quantity: "1", userId: userId },
-      };
-
-      axios
-        .request(options)
-        .then(function (response) {
-          setLoading(false);
-          setCheckOutSuccess(true);
-          notifySuccess();
-          setOrderQRCode([...orgerQRCode, response.data.imagemQrcode]);
-          setOrderQRCode((orders) => [
-            ...orders,
-            {
-              imagemQrcode: response.data.imagemQrcode,
-              qrcode: response.data.qrcode,
-              time: response.data.time,
-            },
-          ]);
-        })
-        .catch(function (error) {
-          notifyError();
-          setLoading(false);
-          console.error(error);
+      if (!isInvalid) {
+        const userRef = doc(db, "users", userId);
+        await updateDoc(userRef, {
+          sobrenome,
+          tel,
         });
 
-      // }
-    } else {
-      notifyErrorInputs();
+        let options;
+
+        if (cupom !== "" && cupomVerify) {
+          options = {
+            method: "POST",
+            url: "https://geaan-leite.herokuapp.com",
+            // url: "http://localhost:3001/cupon",
+            headers: { "Content-Type": "application/json" },
+            data: { quantity: "1", userId: userId, cupom: cupom },
+          };
+        } else {
+          options = {
+            method: "POST",
+            url: "https://geaan-leite.herokuapp.com",
+            // url: "http://localhost:3001/cupon",
+            headers: { "Content-Type": "application/json" },
+            data: { quantity: "1", userId: userId },
+          };
+        }
+
+        axios
+          .request(options)
+          .then(function (response) {
+            setLoading(false);
+            setCheckOutSuccess(true);
+            notifySuccess();
+            setOrderQRCode([...orgerQRCode, response.data.imagemQrcode]);
+            setOrderQRCode((orders) => [
+              ...orders,
+              {
+                imagemQrcode: response.data.imagemQrcode,
+                qrcode: response.data.qrcode,
+                time: response.data.time,
+              },
+            ]);
+          })
+          .catch(function (error) {
+            notifyError();
+            setLoading(false);
+            console.error(error);
+          });
+
+        // }
+      } else {
+        notifyErrorInputs();
+        setLoading(false);
+      }
+    } catch {
       setLoading(false);
+      notifyError();
     }
   };
 
@@ -213,6 +240,28 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
       progress: undefined,
     });
 
+  const notifyCupomCheck = () =>
+    toast.success("🐄 Cupom válido!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+  const notifyCupomError = (message: string) =>
+    toast.error(`🐄  ${message}`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
   const taxa = () => {
     if (ticket.amount === 25) {
       return 1;
@@ -224,7 +273,36 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
     return 0;
   };
 
-  console.log(orgerQRCode);
+  const verifyCupom = async () => {
+    setIsLoadingVerifyCupom(true);
+    if (cupom === "") {
+      setCupomError(true);
+      setIsLoadingVerifyCupom(false);
+    } else {
+      const cupomGeaanBetimRef = doc(db, "cupons", "geaanbetim15");
+      const cupomGeaanBetimResponse = await getDoc(cupomGeaanBetimRef);
+      const cupomGeaanBetim = cupomGeaanBetimResponse.data();
+
+      if (cupom === cupomGeaanBetim?.name) {
+        if (cupomGeaanBetim?.qnt > 0) {
+          setCupomVerify(true);
+          setMessageCupomVerifyInScreen(true);
+          setIsLoadingVerifyCupom(false);
+          notifyCupomCheck();
+        } else {
+          setCupomVerify(false);
+
+          setIsLoadingVerifyCupom(false);
+          notifyCupomError("Cupom expirado");
+        }
+      } else {
+        setCupomVerify(false);
+        setMessageCupomVerifyInScreen(true);
+        setIsLoadingVerifyCupom(false);
+        notifyCupomError("Cupom inválido");
+      }
+    }
+  };
 
   return (
     <>
@@ -398,10 +476,58 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
                       }}
                     />
                   </div>
+
+                  <div className="flex flex-col">
+                    <label htmlFor="cupom">Possui cupom?</label>
+                    <div className="flex space-x-6 justify-between">
+                      <input
+                        type="Text"
+                        name="cupom"
+                        id="cupom"
+                        className={`bg-gray-800 shadow border border-primary-500 focus:outline-none px-3 py-1 rounded-lg w-1/2 ${
+                          cupomError && " !border-red-500"
+                        }`}
+                        onChange={(e) => {
+                          setCupomError(false);
+                          setMessageCupomVerifyInScreen(false);
+                          setCupom(e.target.value);
+                        }}
+                      />
+
+                      {isLoadingVerifyCupom ? (
+                        <BounceLoader color="#70963F" size={60} />
+                      ) : (
+                        <button
+                          onClick={() => verifyCupom()}
+                          className={`border border-primary-500 px-6 py-2 rounded-full shadow hover:scale-110 duration-300 `}
+                        >
+                          Verificar cupom
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="my-12 full flex justify-center">
+              <div className="">
+                {messageCupomVerifyInScreen ? (
+                  cupomVerify ? (
+                    <div className="w-full flex justify-center pt-6 items-center text-primary-500">
+                      <AiOutlineCheck size={35} className="mr-1" />
+                      <p>Cupom válido</p>
+                    </div>
+                  ) : (
+                    <div className="w-full flex justify-center pt-6 items-center text-red-700">
+                      <AiOutlineClose size={35} className="mr-1" />
+                      <p>Cupom inválido</p>
+                    </div>
+                  )
+                ) : (
+                  ""
+                )}
+              </div>
+
+              <div className="my-6 full flex justify-center">
                 {loading ? (
                   <BounceLoader color="#70963F" size={60} />
                 ) : (
