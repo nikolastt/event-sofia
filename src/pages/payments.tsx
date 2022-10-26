@@ -10,6 +10,7 @@ import {
 import { GetServerSideProps } from "next";
 import { unstable_getServerSession } from "next-auth";
 import React from "react";
+import LayoutApplication from "../components/Layout";
 import UserPay from "../components/UserPay";
 import { db } from "../services/firebase";
 import { authOptions } from "./api/auth/[...nextauth]";
@@ -22,6 +23,7 @@ interface IArrayOrders {
     name: string;
     email: string;
     image: string;
+    tel: string;
   };
 }
 
@@ -46,12 +48,14 @@ const Payments: React.FC<IPayments> = ({ orders }) => {
   const ordersData: IArrayOrders[] = JSON.parse(orders);
 
   return (
-    <div>
-      <h1 className="text-white my-6">Total compras: {ordersData.length}</h1>
-      {ordersData.map((order) => (
-        <UserPay key={order.date.seconds} order={order} />
-      ))}
-    </div>
+    <LayoutApplication>
+      <div>
+        <h1 className="text-white mt-24">Total compras: {ordersData.length}</h1>
+        {ordersData.map((order) => (
+          <UserPay key={order.date.seconds} order={order} />
+        ))}
+      </div>
+    </LayoutApplication>
   );
 };
 
@@ -92,6 +96,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         name: user?.name,
         email: user?.email,
         image: user?.image,
+        tel: user?.tel,
       },
     });
   }

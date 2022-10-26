@@ -20,6 +20,7 @@ interface IOrder {
     name: string;
     email: string;
     image: string;
+    tel: string;
   };
 }
 
@@ -31,13 +32,14 @@ const UserPay: React.FC<IUserPay> = ({ order }) => {
   const date = new Date(order.date.seconds * 1000);
   return (
     <div className="my-6 ">
-      <div className="p-6 bg-slate-700 rounded-xl flex items-center">
+      <div className="p-6 bg-slate-700 rounded-xl flex items-center max-w-[600px] mx-auto">
         <div className="relative w-24 flex items-center justify-center h-24 rounded-full overflow-hidden flex-shrink-0">
           <Image src={order.user.image} alt="" layout="fill" />
         </div>
-        <div className="flex flex-col justify-center items-center w-full">
+        <div className="flex flex-col justify-center items-center w-full space-y-3">
           <h1 className="py-3 text-white">{order.user.name}</h1>
-          <h2>{order.user.email}</h2>
+          <h2 className="break-all text-center">{order.user.email}</h2>
+          <h2 className="break-all text-center">{order.user.tel}</h2>
           <h2>
             Data: {date.getDay()}/{date.getMonth() + 1}/{date.getFullYear()}
           </h2>
