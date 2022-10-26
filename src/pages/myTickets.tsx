@@ -110,6 +110,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   let ordersUser: IOrders[] = [];
   const ordersRef = collection(db, "orders");
+
   const q = query(
     ordersRef,
     where("userId", "==", userId),
