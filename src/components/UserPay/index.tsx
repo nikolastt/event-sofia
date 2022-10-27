@@ -15,7 +15,7 @@ const mock = {
 };
 
 interface IOrder {
-  date: Timestamp;
+  date: number;
   user: {
     name: string;
     email: string;
@@ -29,7 +29,8 @@ interface IUserPay {
 }
 
 const UserPay: React.FC<IUserPay> = ({ order }) => {
-  const date = new Date(order.date.seconds * 1000);
+  const date = new Date(order.date);
+
   return (
     <div className="my-6 ">
       <div className="p-6 bg-slate-700 rounded-xl flex items-center max-w-[600px] mx-auto">
@@ -41,7 +42,8 @@ const UserPay: React.FC<IUserPay> = ({ order }) => {
           <h2 className="break-all text-center">{order.user.email}</h2>
           <h2 className="break-all text-center">{order.user.tel}</h2>
           <h2>
-            Data: {date.getDay()}/{date.getMonth() + 1}/{date.getFullYear()}
+            Data: {date.getDate()} / {date.getMonth() + 1} /{" "}
+            {date.getFullYear()}
           </h2>
 
           <h2>

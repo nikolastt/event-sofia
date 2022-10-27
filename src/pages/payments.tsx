@@ -3,14 +3,15 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
   query,
-  Timestamp,
   where,
 } from "firebase/firestore";
 import { GetServerSideProps } from "next";
 import { unstable_getServerSession } from "next-auth";
 import React from "react";
 import LayoutApplication from "../components/Layout";
+import { viewPayments } from "../components/SideBar";
 import UserPay from "../components/UserPay";
 import { db } from "../services/firebase";
 import { authOptions } from "./api/auth/[...nextauth]";
@@ -18,7 +19,7 @@ import { authOptions } from "./api/auth/[...nextauth]";
 // import { Container } from './styles';
 
 interface IArrayOrders {
-  date: Timestamp;
+  date: number;
   user: {
     name: string;
     email: string;
@@ -31,19 +32,6 @@ interface IPayments {
   orders: string;
 }
 
-const mock = {
-  date: { seconds: 1665694070, nanoseconds: 383000000 },
-  user: {
-    name: "Livia Diniz",
-    email: "liviaadinizm@gmail.com",
-    image:
-      "https://lh3.googleusercontent.com/a/ALm5wu0uB5fWJcSptLEwskWQIaqtTE8ZBHOeXbLEjEg=s96-c",
-  },
-};
-
-const dateTeste = new Date(mock.date.seconds * 1000);
-console.log(dateTeste);
-
 const Payments: React.FC<IPayments> = ({ orders }) => {
   const ordersData: IArrayOrders[] = JSON.parse(orders);
 
@@ -52,7 +40,7 @@ const Payments: React.FC<IPayments> = ({ orders }) => {
       <div>
         <h1 className="text-white mt-24">Total compras: {ordersData.length}</h1>
         {ordersData.map((order) => (
-          <UserPay key={order.date.seconds} order={order} />
+          <UserPay key={order.date} order={order} />
         ))}
       </div>
     </LayoutApplication>
@@ -70,10 +58,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const emailUser = session?.user?.email;
 
-  if (
-    emailUser !== "nikolasbitencourtt@gmail.com" &&
-    emailUser !== "sofiavalle1602@gmail.com"
-  ) {
+  const authorized = viewPayments(emailUser as string);
+
+  if (!authorized) {
     return {
       redirect: {
         destination: "/",
@@ -83,7 +70,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   let arrayOrders: IArrayOrders[] = [];
-  const q = query(collection(db, "orders"), where("status", "==", "pago"));
+  const q = query(
+    collection(db, "orders"),
+    where("status", "==", "pago"),
+    orderBy("date", "desc")
+  );
   const orderSnapshot = await getDocs(q);
 
   for (const order of orderSnapshot.docs) {
@@ -91,7 +82,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const userSnap = await getDoc(userRef);
     const user = userSnap.data();
     arrayOrders.push({
-      date: order.data().date,
+      date: order.data().time,
       user: {
         name: user?.name,
         email: user?.email,

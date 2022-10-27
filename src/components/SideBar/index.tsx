@@ -17,6 +17,20 @@ interface ISideBar {
   closeMenu: () => void;
 }
 
+export const viewPayments = (email: string) => {
+  let haveAccess = false;
+
+  if (
+    email === "nikolasbitencourtt@gmail.com" ||
+    email === "sofiavalle1602@gmail.com" ||
+    email === "pamelasviana@hotmail.com"
+  ) {
+    haveAccess = true;
+  }
+
+  return haveAccess;
+};
+
 const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(isOpen);
 
@@ -119,17 +133,16 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
             <AiOutlineDollar size={30} className="mx-3" />
           </ItemMenuSideBar>
 
-          {session?.user?.email === "nikolasbitencourtt@gmail.com" ||
-            (session?.user?.email === "sofiavalle1602@gmail.com" && (
-              <ItemMenuSideBar
-                content="Total compras"
-                active={path === "payments" ? true : false}
-                href="/payments"
-                closeMenu={closeMenu}
-              >
-                <MdPayment size={30} className="mx-3" />
-              </ItemMenuSideBar>
-            ))}
+          {viewPayments(session?.user?.email as string) && (
+            <ItemMenuSideBar
+              content="Total compras"
+              active={path === "payments" ? true : false}
+              href="/payments"
+              closeMenu={closeMenu}
+            >
+              <MdPayment size={30} className="mx-3" />
+            </ItemMenuSideBar>
+          )}
 
           {status === "authenticated" && (
             <div
