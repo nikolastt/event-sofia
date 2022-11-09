@@ -391,7 +391,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
                       R$: {String(ticket.amount.toFixed(2)).replace(".", ",")} +
                       R$ {ticket.amount === 25 && "1,00"}
                       {ticket.amount === 30 && "1,50"}{" "}
-                      {ticket.amount === 35 && "2,0"} - Taxa
+                      {ticket.amount === 35 && "1,50"} - Taxa
                     </p>
                   </div>
                 </div>
