@@ -268,7 +268,7 @@ const CheckOut: React.FC<ICheckOut> = ({ userId, orders, ticket }) => {
     } else if (ticket.amount === 30) {
       return 1.5;
     } else if (ticket.amount === 35) {
-      return 2;
+      return 1.5;
     }
     return 0;
   };
