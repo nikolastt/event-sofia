@@ -77,20 +77,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
   const orderSnapshot = await getDocs(q);
 
+  const q2 = query(collection(db, "users"), where("tel", "!=", "null"));
+  const usersPay = await getDocs(q2);
+
   for (const order of orderSnapshot.docs) {
-    const userRef = doc(db, "users", order.data().userId);
-    const userSnap = await getDoc(userRef);
-    const user = userSnap.data();
-    arrayOrders.push({
-      date: order.data().time,
-      user: {
-        name: user?.name,
-        email: user?.email,
-        image: user?.image,
-        tel: user?.tel,
-      },
-    });
+    for (const user of usersPay.docs) {
+      if (order.data().userId === user.id) {
+        arrayOrders.push({
+          date: order.data().time,
+          user: {
+            name: user.data().name,
+            email: user.data().email,
+            image: user.data().image,
+            tel: user.data().tel,
+          },
+        });
+      }
+    }
   }
+
   const orders = JSON.stringify(arrayOrders);
 
   return {
