@@ -25,7 +25,7 @@ export const viewPayments = (email: string) => {
     email === "nikolasbitencourtt@gmail.com" ||
     email === "sofiavalle1602@gmail.com" ||
     email === "pamelasviana@hotmail.com" ||
-    email.toLocaleLowerCase() === "marianapaulatorres8@gmail.com"
+    email === "marianapaulatorres8@gmail.com"
   ) {
     haveAccess = true;
   }
