@@ -11,6 +11,7 @@ import { signOut } from "next-auth/react";
 import { AiOutlineClose, AiOutlineDollar } from "react-icons/ai";
 import { MdPayment } from "react-icons/md";
 import { signIn } from "next-auth/react";
+import { stringify } from "querystring";
 
 interface ISideBar {
   isOpen?: boolean;
@@ -24,7 +25,7 @@ export const viewPayments = (email: string) => {
     email === "nikolasbitencourtt@gmail.com" ||
     email === "sofiavalle1602@gmail.com" ||
     email === "pamelasviana@hotmail.com" ||
-    email.toLocaleLowerCase() === "Marianapaulatorres8@gmail.com".toLowerCase()
+    email.toLocaleLowerCase() === "marianapaulatorres8@gmail.com"
   ) {
     haveAccess = true;
   }
