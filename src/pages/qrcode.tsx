@@ -44,7 +44,7 @@ const notifySuccess = (name: string) =>
   });
 
 const notifyError = () =>
-  toast.error("🐄 Ticket Inválido !", {
+  toast.error("🐄 Algo deu errado!", {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -119,22 +119,23 @@ const Qrcode = () => {
         }
       }
     } catch (error) {
-      if (error instanceof Error) {
-        if (error.message === "QrUsed") {
-          setRenderScan(!renderScan);
-          setData({
-            status: "error",
-            user: {
-              image: "",
-              name: "",
-            },
-          });
-          setQRUsed(true);
-          setErrorQR(true);
-          notifyErrorQrUsed();
-          return;
-        }
-      }
+      // if (error instanceof Error) {
+      //   if (error.message === "QrUsed") {
+      //     setRenderScan(!renderScan);
+      //     setData({
+      //       status: "error",
+      //       user: {
+      //         image: "",
+      //         name: "",
+      //       },
+      //     });
+      //     setQRUsed(true);
+      //     setErrorQR(true);
+      //     notifyErrorQrUsed();
+      //     return;
+      //   }
+      // }
+      console.log(error);
       setRenderScan(!renderScan);
       setData({
         status: "error",
