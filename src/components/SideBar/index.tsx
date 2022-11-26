@@ -106,16 +106,14 @@ const SideBar: React.FC<ISideBar> = ({ isOpen, closeMenu }) => {
             <AiFillHome size={30} className="mx-3" />
           </ItemMenuSideBar>
 
-          {session?.user?.email === "nikolasbitencourtt@gmail.com" && (
-            <ItemMenuSideBar
-              content="Ler QRcode"
-              active={path === "qrcode" ? true : false}
-              href="/qrcode"
-              closeMenu={closeMenu}
-            >
-              <ImQrcode size={30} className="mx-3" />
-            </ItemMenuSideBar>
-          )}
+          <ItemMenuSideBar
+            content="Ler QRcode"
+            active={path === "qrcode" ? true : false}
+            href="/qrcode"
+            closeMenu={closeMenu}
+          >
+            <ImQrcode size={30} className="mx-3" />
+          </ItemMenuSideBar>
 
           <ItemMenuSideBar
             content="Meus QrCodes"
